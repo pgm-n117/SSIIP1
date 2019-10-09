@@ -1,4 +1,7 @@
-class dir(enum):
+from enum import Enum
+
+
+class dir(Enum):
     abajo=0
     izquierda=1
     derecha=2
@@ -6,5 +9,5 @@ class dir(enum):
 
 class Accion:
     def __init__(self, coche, direccion):
-        this.coche=coche
-        this.direccion=direccion
+        self.coche=coche
+        self.direccion=direccion

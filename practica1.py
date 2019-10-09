@@ -1,11 +1,25 @@
 
 #!/usr/bin/python3
 
-import Accion, Estado
+import sys, getopt, Estado, Maze, Algoritmo, practica1
+
+
 
 #from libreria import funcion as fn
 
 def main(argv):
+
+   practica1.maze = Maze.getProblemInstance(5, 5, 100)
+   Algoritmo.f()
+
+
+
+   return(0)
+
+
+
+
+
    inputfile = ''
    outputfile = ''
    try:
@@ -29,3 +43,7 @@ if __name__ == "__main__":
    '''
    khjlhkjhkl
    '''
+
+
+
+
