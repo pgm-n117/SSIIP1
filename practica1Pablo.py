@@ -1,9 +1,10 @@
 # !/usr/bin/python3
 
-import sys, getopt, Estado, Maze, Algoritmo
+import sys, getopt, Maze
 from Nodo import *
 from Methods import *
 from Accion import *
+from Estructuras import *
 '''
 secuencia = None
 estado = None
@@ -27,15 +28,25 @@ def main(argv):
 
     maze = Maze.getProblemInstance(5, 5, 100)
 
-    #for i in
-
-    #print(maze)
     NodoInicial = Nodo(None, None, 0, None, eInicial(maze, n, nCars))
 
-    #print(NodoInicial.estado)
-    x=Accion(1,dir(2))
-    print(x.direccion)
+    print(len(NodoInicial.estado))
+
+    '''
+    prueba = [(0,1),(1,2),(2,2)]
+    print(esSolucion(prueba, 3))
+    '''
+
+    #x=Accion(1,dir(2))
+    #print(x.direccion)
+
+    #a = Solucion()
+    #a.Abiertos = 3
+
+    print(a.Abiertos)
+
     return (0)
+
 
 
 
