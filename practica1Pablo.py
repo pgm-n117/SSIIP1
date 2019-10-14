@@ -1,7 +1,7 @@
 # !/usr/bin/python3
 
 import sys, getopt, Maze
-#from Nodo import *
+from Nodo import *
 from Methods import *
 from Accion import *
 from Estructuras import *
@@ -29,10 +29,12 @@ def main(argv):
     maze = Maze.getProblemInstance(5, 5, 100)
 
     NodoInicial = Nodo(None, None, 0, None, eInicial(maze, n, nCars))
-    nodoAux = Nodo(NodoInicial, None, 7, None, None);
-    nodoAux2 = Nodo(nodoAux, None, 8, None, None);
+    nodoAux = Nodo(NodoInicial, None, 7, None, None)
+    nodoAux2 = Nodo(nodoAux, None, 8, None, None)
 
-    print(coste(nodoAux2));
+    c = nodoAux2.coste()
+
+    print(c)
     #print(esSolucion(NodoInicial.estado, n))
 
     '''
@@ -54,7 +56,7 @@ def main(argv):
 
 
 if __name__ == "__main__":
-   main(sys.argv[1:])
+    main(sys.argv[1:])
 
 
 

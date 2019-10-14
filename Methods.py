@@ -17,19 +17,8 @@ def eInicial(maze, n, nCars):
 #def Sucesores():
 
 
-#def posAcciones():
+#def AccionesPosibles():
 
-
-
-
-
-#Funcion para calcular el coste de un nodo:
-
-def coste(nodo:Nodo):
-    c=nodo.Coste;
-    if(nodo.Padre != None):
-        c += coste(nodo.Padre);
-    return c;
 
 
 #Comprobamos si un estado es una solución
