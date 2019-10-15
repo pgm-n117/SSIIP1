@@ -6,21 +6,31 @@ from Estructuras import *
 #suma 2 Tuplas x con x e y con y
 def SumaTuplas(a,b):
     return (a[0]+b[0],a[1]+b[1])
-
+#resta 2 Tuplas x con x e y con y
+def RestaTuplas(a,b):
+    return (a[0]-b[0],a[1]-b[1])
 #Obtiene el estado inicial
 def eInicial(maze, n, nCars):
-
     estado = [(0,0) for i in range(nCars)]
     for i in range(n):
         if (maze[0][i] > 0):
             estado[maze[0][i]-1]=(i,0)
     return estado;
 
+def aplicaAccion(estado,accion):
+        nuevoEstado=estado[:]
+        nuevoestado[accion.coche]=SumaTuplas(nuevoestado[accion.coche],accion.direccion)
+    return nuevoEstado;
+
+def desHacerAccion(estado,accion):
+        nuevoEstado=estado[:]
+        nuevoestado[accion.coche]=RestaTuplas(nuevoestado[accion.coche],accion.direccion)
+    return nuevoEstado;
 
 def Sucesores(maze, n, nodo, acciones):
     nodosSucesores=[]
     for accion in AccionesPosibles(maze, n, nodo.estado):
-        jojo=0;
+        nodosSucesores.append(Nodo(nodo, accion, nodo.coste+1, None, aplicaAccion(nodo.estado,accion))
 
 #Obtiene las posibles acciones a partir de un estado
 def AccionesPosibles(maze, n, estado):
