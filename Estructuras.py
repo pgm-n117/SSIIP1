@@ -1,7 +1,6 @@
 from enum import Enum
 
 
-
 #Atributos de un nodo cualquiera
 class Nodo:
     def __init__(self, Padre, Accion, Coste, Heur, estado):

@@ -7,12 +7,6 @@ from Estructuras import *
 def SumaTuplas(a,b):
     return (a[0]+b[0],a[1]+b[1])
 
-def PosicionValida(posicion,maze,estado):
-    n=len(maze[0])
-    if(posicion[0]<0 or posicion[1]<0 or posicion[0]>n-1 or posicion[1]>n-1 or maze[posicion[0]][posicion[1]]==-1 or posicion in estado):
-        return False
-    return True;
-
 #Obtiene el estado inicial
 def eInicial(maze, n, nCars):
 
@@ -23,18 +17,19 @@ def eInicial(maze, n, nCars):
     return estado;
 
 
-#def Sucesores():
+def Sucesores(maze, n, nodo, acciones):
+    nodosSucesores=[]
+    for accion in AccionesPosibles(maze, n, nodo.estado):
+        jojo=0;
 
-
+#Obtiene las posibles acciones a partir de un estado
 def AccionesPosibles(maze, n, estado):
     acciones=[]
     for coche in range(len(estado)):
         for direccion in range(4):
             nuevaPosicion=SumaTuplas(estado[coche],dir[direccion])
-            if (PosicionValida(nuevaPosicion,maze,estado)):
+            if(posicion[0]<0 or posicion[1]<0 or posicion[0]>n-1 or posicion[1]>n-1 or maze[posicion[0]][posicion[1]]==-1 or posicion in estado):
                 acciones.append(Accion(coche,direccion))
-
-
     return acciones;
 
 

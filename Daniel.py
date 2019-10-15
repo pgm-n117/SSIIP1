@@ -28,10 +28,11 @@ if __name__ == "__main__":
     maze = getProblemInstance(n, nCars, seed)
 
     #for i in
-
+    print(numNodos)
     print(maze)
     NodoInicial = Nodo(None, None, 0, None, eInicial(maze, n, nCars))
-    for a in AccionesPosibles(maze,n,NodoInicial.estado):
-        print('coche: ',a.coche+1,' accion:',a.direccion)
+    print(numNodos)
+    #for a in AccionesPosibles(maze,n,NodoInicial.estado):
+    #    print('coche: ',a.coche+1,' accion:',a.direccion)
     #print(NodoInicial.estado)
     x=Accion(1,dir[3])
