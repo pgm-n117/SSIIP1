@@ -1,8 +1,17 @@
 
 import sys, getopt, Maze
-from Accion import *
+#from Accion import *
 from Estructuras import *
 
+#suma 2 Tuplas x con x e y con y
+def SumaTuplas(a,b):
+    return (a[0]+b[0],a[1]+b[1])
+
+def PosicionValida(posicion,maze,estado):
+    n=len(maze[0])
+    if(posicion[0]<0 or posicion[1]<0 or posicion[0]>n-1 or posicion[1]>n-1 or maze[posicion[0]][posicion[1]]==-1 or posicion in estado):
+        return False
+    return True;
 
 #Obtiene el estado inicial
 def eInicial(maze, n, nCars):
@@ -17,8 +26,16 @@ def eInicial(maze, n, nCars):
 #def Sucesores():
 
 
-#def AccionesPosibles():
+def AccionesPosibles(maze, n, estado):
+    acciones=[]
+    for coche in range(len(estado)):
+        for direccion in range(4):
+            nuevaPosicion=SumaTuplas(estado[coche],dir[direccion])
+            if (PosicionValida(nuevaPosicion,maze,estado)):
+                acciones.append(Accion(coche,direccion))
 
+
+    return acciones;
 
 
 #Comprobamos si un estado es una solución
@@ -30,5 +47,3 @@ def esSolucion(estado, n):
         if(estado[i][1] != n-1):
             return False;
     return True;
-
-

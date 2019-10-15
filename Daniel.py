@@ -31,6 +31,7 @@ if __name__ == "__main__":
 
     print(maze)
     NodoInicial = Nodo(None, None, 0, None, eInicial(maze, n, nCars))
-
+    for a in AccionesPosibles(maze,n,NodoInicial.estado):
+        print('coche: ',a.coche+1,' accion:',a.direccion)
     #print(NodoInicial.estado)
-    x=Accion(1,dir(2))
+    x=Accion(1,dir[3])
