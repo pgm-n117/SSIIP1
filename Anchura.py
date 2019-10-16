@@ -20,7 +20,7 @@ def Anchura(maz,num,nCoches):
     solucion=[]
 
     while(continuar):
-        nodoFrontera=elegibles.pop()
+        nodoFrontera=elegibles.pop(0)
         if(not(nodoFrontera.estado in cerrados)):
             nodosExplorados+=1
             if(esSolucion(nodoFrontera.estado, n)):
@@ -40,4 +40,5 @@ def Anchura(maz,num,nCoches):
         solucion.insert(0,solucion[0].padre)
     for nod in solucion:
         print(nod.estado)
-    return
+    print(nodoObjetivo.coste)
+    return;
