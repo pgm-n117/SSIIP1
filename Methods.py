@@ -15,31 +15,33 @@ def eInicial(maze, n, nCars):
     for i in range(n):
         if (maze[0][i] > 0):
             estado[maze[0][i]-1]=(i,0)
+            maze[0][i]=0
     return estado;
 
 def aplicaAccion(estado,accion):
-        nuevoEstado=estado[:]
-        nuevoestado[accion.coche]=SumaTuplas(nuevoestado[accion.coche],accion.direccion)
+    nuevoEstado=estado[:]
+    nuevoEstado[accion.coche]=SumaTuplas(nuevoEstado[accion.coche],accion.direccion)
     return nuevoEstado;
 
 def desHacerAccion(estado,accion):
-        nuevoEstado=estado[:]
-        nuevoestado[accion.coche]=RestaTuplas(nuevoestado[accion.coche],accion.direccion)
+    nuevoEstado=estado[:]
+    nuevoEstado[accion.coche]=RestaTuplas(nuevoEstado[accion.coche],accion.direccion)
     return nuevoEstado;
 
-def Sucesores(maze, n, nodo, acciones):
+def Sucesores(maze, n, nod):
     nodosSucesores=[]
-    for accion in AccionesPosibles(maze, n, nodo.estado):
-        nodosSucesores.append(Nodo(nodo, accion, nodo.coste+1, None, aplicaAccion(nodo.estado,accion))
+    for accion in AccionesPosibles(maze, n, nod.estado):
+        nodosSucesores.append(Nodo(nod, accion, nod.coste+1, None, aplicaAccion(nod.estado,accion)))
+    return nodosSucesores;
 
 #Obtiene las posibles acciones a partir de un estado
 def AccionesPosibles(maze, n, estado):
     acciones=[]
-    for coche in range(len(estado)):
-        for direccion in range(4):
-            nuevaPosicion=SumaTuplas(estado[coche],dir[direccion])
-            if(posicion[0]<0 or posicion[1]<0 or posicion[0]>n-1 or posicion[1]>n-1 or maze[posicion[0]][posicion[1]]==-1 or posicion in estado):
-                acciones.append(Accion(coche,direccion))
+    for direccion in range(4):
+        for coche in range(len(estado)):
+            posicion=SumaTuplas(estado[coche],dir[direccion])
+            if(not(posicion[0]<0 or posicion[1]<0 or posicion[0]>n-1 or posicion[1]>n-1 or maze[posicion[0]][posicion[1]]==-1 or posicion in estado)):
+                acciones.append(Accion(coche,dir[direccion]))
     return acciones;
 
 

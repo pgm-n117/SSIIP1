@@ -17,22 +17,20 @@ if __name__ == "__main__":
     parser.add_argument('nCars', type=int, help='numero de coches')
     parser.add_argument('seed', type=int, help='semilla para funcion random')
     parser.add_argument('seleccion', action='store_true',default=False)
-    parser.add_argument('algoritmo', choices=['profundidad', 'anchura', 'A*'])
+    parser.add_argument('algoritmo', choices=['anchura', 'profundidad', 'A*'])
     global maze, n, nCars
     args = parser.parse_args()
-    print(sys.argv)
-    n=int(args.n)
-    nCars=int(args.nCars)
-    seed=int(args.seed)
-    print (n,nCars,seed,args.algoritmo)
-    maze = getProblemInstance(n, nCars, seed)
-
-    #for i in
-    print(numNodos)
+    print(args)
+    maze = getProblemInstance(args.n, args.nCars, args.seed)
     print(maze)
-    NodoInicial = Nodo(None, None, 0, None, eInicial(maze, n, nCars))
-    print(numNodos)
+
+    from Anchura import *
+    Anchura(maze,args.n,args.nCars)
+    #for i in
+    #print(numNodos)
+    print(maze)
+    #NodoInicial = Nodo(None, None, 0, None, eInicial(maze, n, nCars))
+    #print(numNodos)
     #for a in AccionesPosibles(maze,n,NodoInicial.estado):
     #    print('coche: ',a.coche+1,' accion:',a.direccion)
     #print(NodoInicial.estado)
-    x=Accion(1,dir[3])
