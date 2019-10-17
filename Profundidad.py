@@ -21,7 +21,7 @@ def Profundidad(maz,num,nCoches,limite):
     eCerrados=[]
     while(continuar):
         nodoFrontera=elegibles.pop()
-        print(nodoFrontera.estado)
+        #print(nodoFrontera.estado)
         if(not(nodoFrontera.estado in eCerrados)):
             nodosExplorados+=1
             if(esSolucion(nodoFrontera.estado, n)):

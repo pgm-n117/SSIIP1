@@ -21,6 +21,7 @@ def Anchura(maz,num,nCoches):
 
     while(continuar):
         nodoFrontera=elegibles.pop(0)
+        #print(nodoFrontera.estado)
         if(not(nodoFrontera.estado in cerrados)):
             nodosExplorados+=1
             if(esSolucion(nodoFrontera.estado, n)):

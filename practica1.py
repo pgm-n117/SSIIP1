@@ -1,7 +1,7 @@
 
 #!/usr/bin/python3
 
-import sys, getopt, Estado, Maze, Algoritmo, practica1
+import sys, getopt, Maze, practica1
 
 
 

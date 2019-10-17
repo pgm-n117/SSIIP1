@@ -3,6 +3,7 @@ import sys, getopt, Maze
 #from Accion import *
 from Estructuras import *
 
+
 #suma 2 Tuplas x con x e y con y
 def SumaTuplas(a,b):
     return (a[0]+b[0],a[1]+b[1])
@@ -38,8 +39,8 @@ def AccionesPosibles(maze, n, estado):
     acciones=[]
     for direccion in range(4):
         for coche in range(len(estado)):
-            posicion=SumaTuplas(estado[coche],dir[direccion])
-            if(not(posicion[0]<0 or posicion[1]<0 or posicion[0]>n-1 or posicion[1]>n-1 or maze[posicion[0]][posicion[1]]==-1 or posicion in estado)):
+            posicion=SumaTuplas(estado[coche],dir[direccion])   #Calculamos la posible siguiente posicion
+            if(not(posicion[0]<0 or posicion[1]<0 or posicion[0]>n-1 or posicion[1]>n-1 or maze[posicion[1]][posicion[0]]==-1 or posicion in estado) ):
                 acciones.append(Accion(coche,dir[direccion]))
     return acciones;
 

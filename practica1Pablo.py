@@ -5,6 +5,9 @@ from Nodo import *
 from Methods import *
 from Accion import *
 from Estructuras import *
+from Anchura import *
+from Profundidad import *
+from Maze import *
 '''
 secuencia = None
 estado = None
@@ -23,32 +26,11 @@ maze = None
 def main(argv):
 
     global maze, n, nCars
-    n=5
-    nCars=5
+    n = 5
+    nCars = 2
 
-    maze = Maze.getProblemInstance(5, 5, 100)
-
-    NodoInicial = Nodo(None, None, 0, None, eInicial(maze, n, nCars))
-    nodoAux = Nodo(NodoInicial, None, 7, None, None)
-    nodoAux2 = Nodo(nodoAux, None, 8, None, None)
-
-    c = nodoAux2.coste()
-
-    print(c)
-    #print(esSolucion(NodoInicial.estado, n))
-
-    '''
-    prueba = [(0,1),(1,2),(2,2)]
-    print(esSolucion(prueba, 3))
-    '''
-
-    #x=Accion(1,dir(2))
-    #print(x.direccion)
-
-    #a = Solucion()
-    #a.Abiertos = 3
-
-    #print(a.Abiertos)
+    maze = getProblemInstance(n, nCars, 100) #tamaño, nCoches, Semilla
+    Profundidad(maze, n, nCars, -1) #Maze(Problema), tamaño, nCoches
 
     return (0)
 
