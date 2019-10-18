@@ -2,11 +2,12 @@ from enum import Enum
 
 #Atributos de un nodo cualquiera
 class Nodo:
-    def __init__(self, padre, accion, coste, heur, estado):
+    def __init__(self, padre, accion, coste, heur, eval, estado):
         self.padre = padre
         self.accion = accion
         self.coste = coste
         self.heur = heur
+        self.eval = eval
         self.estado = estado
 
 #Solucion del problema

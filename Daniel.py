@@ -22,13 +22,18 @@ if __name__ == "__main__":
     global maze, n, nCars
     args = parser.parse_args()
     print(args)
-    maze = getProblemInstance(args.n, args.nCars, args.seed)
-    print(maze)
+    #maze = getProblemInstance(args.n, args.nCars, args.seed)
+    #print(maze)
     if(args.algoritmo=='anchura'):
         from Anchura import *
-        Anchura(maze,args.n,args.nCars)
+        Anchura(args.n,args.nCars, args.seed)
     elif(args.algoritmo=='profundidad'):
         from Profundidad import *
-        Profundidad(maze,args.n,args.nCars,args.limite)
+        Profundidad(args.n,args.nCars, args.seed, args.limite)
+    elif(args.algoritmo=='AEstrella'):
+        from AEstrella import *
+        AEstrella(args.n, args.nCars, args.seed)
+    '''    
     if(args.n<12):
         print(maze)
+    '''

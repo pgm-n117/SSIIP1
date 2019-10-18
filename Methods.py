@@ -31,7 +31,7 @@ def desHacerAccion(estado,accion):
 def Sucesores(maze, n, nod):
     nodosSucesores=[]
     for accion in AccionesPosibles(maze, n, nod.estado):
-        nodosSucesores.append(Nodo(nod, accion, nod.coste+1, None, aplicaAccion(nod.estado,accion)))
+        nodosSucesores.append(Nodo(nod, accion, nod.coste+1, None, None, aplicaAccion(nod.estado,accion)))
     return nodosSucesores;
 
 #Obtiene las posibles acciones a partir de un estado

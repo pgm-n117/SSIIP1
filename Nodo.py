@@ -3,6 +3,7 @@ class Nodo:
     Accion = None
     Coste = None
     Heur = None
+    Eval = None
     estado = None
 
     def __init__(self, Padre, Accion, Coste, Heur, Eval, estado):
@@ -13,10 +14,4 @@ class Nodo:
         self.Eval = Eval  # Coste Total del nodo + Heurística: f(n) = g(n) + h(n)
         self.estado = estado  # Lista de tuplas que contiene la posiciones de los coches en el Maze
 
-    # Funcion para calcular el coste total de llegar a un nodo:
 
-    def coste(self):
-        c = self.Coste
-        if (self.Padre != None):
-            c += self.costeT
-        return c
