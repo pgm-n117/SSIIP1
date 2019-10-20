@@ -11,6 +11,16 @@ class Nodo:
         self.estado = estado
 
 
+    #def __gt__(self, nodo):     #Comparacion greater than
+        #return self.edad > persona.edad
+
+    #def __ge__(self, nodo):     #Comparacion greater or equal than
+        #return self.edad >= persona.edad
+
+    def __eq__(self, nodo):     #Comparacion equals
+        return ((self.estado == nodo.estado) and (self.coste == nodo.coste))
+
+
 
 #Solucion del problema
 class Solucion:
