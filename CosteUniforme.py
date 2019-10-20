@@ -3,7 +3,7 @@ from Estructuras import *
 from Methods import *
 from Maze import *
 
-def AEstrella(num, nCoches, semilla):
+def costeUniforme(num, nCoches, semilla):
     global maze,n,nCars
     maze=getProblemInstance(num, nCoches, semilla)
     print(maze)
@@ -17,10 +17,7 @@ def AEstrella(num, nCoches, semilla):
     continuar = True
     insertado = False
 
-    #Obtenemos el nodo inicial, calculamos su heurística y su función de evaluación
     NodoInicial = Nodo(None, None, 0, None, None, eInicial(maze, n, nCars))
-    NodoInicial.heur = Heuristica(n, NodoInicial)
-    NodoInicial.eval = NodoInicial.coste + NodoInicial.heur
 
     nodoFrontera = None  # Nodo actual en cada iteración
 
@@ -48,15 +45,13 @@ def AEstrella(num, nCoches, semilla):
                     nodosExpandidos +=1
                     for nod in Sucesores(listaAcciones, nodoFrontera):
                         insertado = False
-                        nod.heur = Heuristica(n, nod)
-                        nod.eval = nod.coste + nod.heur
                         for i in range(len(elegibles)):
-                            #Insertamos cada nodo, ordenado por evaluación, y además por orden de generación
-                            if (nod.eval < elegibles[i].eval):
+                            #Insertamos cada nodo, ordenado por coste, y además por orden de generación
+                            if (nod.coste < elegibles[i].coste):
                                 elegibles.insert(i, nod)
                                 insertado = True
                                 break
-                        #Si su evaluacion era mayor que todos los de abiertos, y no ha sido insertado, se inserta al final
+                        #Si su coste era mayor que todos los de abiertos, y no ha sido insertado, se inserta al final
                         if(insertado == False):
                             elegibles.append(nod)
 

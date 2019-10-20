@@ -7,6 +7,7 @@ from Accion import *
 from Estructuras import *
 from Anchura import *
 from Profundidad import *
+from AEstrella import *
 from Maze import *
 '''
 secuencia = None
@@ -31,8 +32,9 @@ def main(argv):
 
 
     #Profundidad(maze, n, nCars, -1) #Maze(Problema), tamaño, nCoches
-    Profundidad(5, 2, 100, -1)
+    #Profundidad(5, 2, 100, -1)
     #Anchura(5, 2, 100)
+    AEstrella(5, 2, 100)
 
     return (0)
 
