@@ -30,7 +30,7 @@ if __name__ == "__main__":
     elif(args.algoritmo=='profundidad'):
         from Profundidad import *
         Profundidad(args.n,args.nCars, args.seed, args.limite)
-    elif(args.algoritmo=='AEstrella'):
+    elif(args.algoritmo=='A*'):
         from AEstrella import *
         AEstrella(args.n, args.nCars, args.seed)
     '''    

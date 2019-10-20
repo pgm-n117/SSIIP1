@@ -10,6 +10,8 @@ class Nodo:
         self.eval = eval
         self.estado = estado
 
+
+
 #Solucion del problema
 class Solucion:
     Nodo = None

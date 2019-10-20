@@ -28,9 +28,9 @@ def desHacerAccion(estado,accion):
     nuevoEstado[accion.coche]=RestaTuplas(nuevoEstado[accion.coche],accion.direccion)
     return nuevoEstado;
 
-def Sucesores(maze, n, nod):
+def Sucesores(listaAcciones, nod):
     nodosSucesores=[]
-    for accion in AccionesPosibles(maze, n, nod.estado):
+    for accion in listaAcciones:
         nodosSucesores.append(Nodo(nod, accion, nod.coste+1, None, None, aplicaAccion(nod.estado,accion)))
     return nodosSucesores;
 
@@ -51,10 +51,11 @@ def Heuristica(n, nod):
         h += ((n-1)-pos[1])
     return h;
 
+
+
 #Comprobamos si un estado es una solución
 #Si la segunda componente de algun coche no está en la última fila,
 # no estaremos ante una solución
-
 def esSolucion(estado, n):
     for i in range(len(estado)):
         if(estado[i][1] != n-1):

@@ -3,49 +3,63 @@ from Estructuras import *
 from Methods import *
 from Maze import *
 
-def Anchura(num,nCoches, semilla):
-    global maze,n,nCars
-    maze=getProblemInstance(num, nCoches, semilla)
+
+def Anchura(num, nCoches, semilla):
+    global maze, n, nCars
+    maze = getProblemInstance(num, nCoches, semilla)
     print(maze)
 
-    n=num
-    nCars=nCoches
+    n = num  # Tamaño del problema
+    nCars = nCoches  # Número de coches
 
-    nodosCreados=0
-    nodosExplorados=0
-    nodosCerrados=0
-    continuar=True
+    nodosCreados = 0
+    nodosExplorados = 0
+    nodosExpandidos = 0       #Nodos expandidos
+    continuar = True
 
     NodoInicial = Nodo(None, None, 0, None, None, eInicial(maze, n, nCars))
-    nodosCreados+=1
-    elegibles=[NodoInicial]
-    cerrados=[]
-    solucion=[]
+    nodoFrontera = None  # Nodo actual en cada iteración
+    nodoObjetivo = None
+    nodosCreados += 1
+    elegibles = [NodoInicial]   #Lista de nodos que quedan por explorar
+    maxElegibles = 0;
+    cerrados = []               #lista de estados visitados
+    solucion = []
 
-    while(continuar):
-        nodoFrontera=elegibles.pop(0)
-        #print(nodoFrontera.estado)
-        if(not(nodoFrontera.estado in cerrados)):
-            nodosExplorados+=1
-            if(esSolucion(nodoFrontera.estado, n)):
-                continuar=False
-                nodoObjetivo=nodoFrontera
-                solucion.insert(0,nodoObjetivo)
+    while (continuar):
+        nodoFrontera = elegibles.pop(0)
+
+        nodosExplorados += 1        #Preguntar si ha sido visitado un estado cuenta como explorar un nodo
+        if (not (nodoFrontera.estado in cerrados)):
+
+            if (esSolucion(nodoFrontera.estado, n)):
+                continuar = False
+                nodoObjetivo = nodoFrontera
+                solucion.insert(0, nodoObjetivo)
             else:
-                nodosCerrados+=1
                 cerrados.append(nodoFrontera.estado)
-                for nod in Sucesores(maze, n, nodoFrontera):
-                    elegibles.append(nod)
-                    nodosCreados+=1
-        if(len(elegibles)==0):
-            print('error. nos hemos quedado sin elegibles')
-            continuar=False
+                listaAcciones = AccionesPosibles(maze, n, nodoFrontera.estado)
+                if(len(listaAcciones) > 0):
+                    nodosExpandidos +=1
+                    for nod in Sucesores(listaAcciones, nodoFrontera):
+                        elegibles.append(nod)
+                        nodosCreados += 1
+                    if (len(elegibles) > maxElegibles): maxElegibles = len(elegibles)
 
-    while(solucion[0].padre!=None):
-        solucion.insert(0,solucion[0].padre)
+        if (len(elegibles) == 0):
+            print('error. nos hemos quedado sin elegibles')
+            continuar = False
+
+    while (solucion[0].padre != None):
+        solucion.insert(0, solucion[0].padre)
 
     for nod in solucion:
         print(nod.estado)
 
-    print(nodoObjetivo.coste)
+    print("Coste de la solución: " + str(nodoObjetivo.coste))
+    print("Nodos Generados: " + str(nodosCreados))
+    print("Nodos Expandidos: " + str(nodosExpandidos))
+    print("Nodos Explorados: " + str(nodosExplorados))
+    print("Máximo número de nodos abiertos " + str(maxElegibles))
+
     return;

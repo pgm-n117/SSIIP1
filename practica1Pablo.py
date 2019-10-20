@@ -29,8 +29,10 @@ def main(argv):
     n = 5
     nCars = 2
 
-    maze = getProblemInstance(n, nCars, 100) #tamaño, nCoches, Semilla
-    Profundidad(maze, n, nCars, -1) #Maze(Problema), tamaño, nCoches
+
+    #Profundidad(maze, n, nCars, -1) #Maze(Problema), tamaño, nCoches
+    Profundidad(5, 2, 100, -1)
+    #Anchura(5, 2, 100)
 
     return (0)
 
