@@ -17,12 +17,14 @@ if __name__ == "__main__":
     parser.add_argument('n', type=int, help='tamaño del problema')
     parser.add_argument('nCars', type=int, help='numero de coches')
     parser.add_argument('seed', type=int, help='semilla para funcion random')
-    parser.add_argument('seleccion', action='store_true',default=False)
     parser.add_argument('algoritmo', choices=['anchura', 'profundidad', 'AEstrella', 'primeroMejor', 'costeUniforme'])
-    parser.add_argument('-l', '--limite', help='limite en profundidad limitada', type=int, default=-1)
-    global maze, n, nCars
+    parser.add_argument('--limite', '-l',  help='limite en profundidad limitada', type=int, default=-1)
     args = parser.parse_args()
+
+    global maze, n, nCars
+
     print(args)
+
     #maze = getProblemInstance(args.n, args.nCars, args.seed)
     #print(maze)
 
@@ -44,7 +46,7 @@ if __name__ == "__main__":
     elif (args.algoritmo == 'costeUniforme'):
         from CosteUniforme import *
         costeUniforme(args.n, args.nCars, args.seed)
-    '''    
+    '''
     if(args.n<12):
         print(maze)
     '''
