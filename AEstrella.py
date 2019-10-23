@@ -62,11 +62,13 @@ def AEstrella(num, nCoches, semilla):
 
                         nodosCreados += 1
 
-                    if (len(elegibles) > maxElegibles): maxElegibles = len(elegibles)
+                    if (len(elegibles) > maxElegibles):
+                        maxElegibles = len(elegibles)
 
         if (len(elegibles) == 0):
-            print('error. nos hemos quedado sin elegibles')
+            print('Error. Nos hemos quedado sin elegibles')
             continuar = False
+            return
 
     while (solucion[0].padre != None):
         solucion.insert(0, solucion[0].padre)

@@ -56,9 +56,10 @@ def Profundidad(num, nCoches, semilla, limite):
                         elegibles = listaSucesores + elegibles
                         if (len(elegibles) > maxElegibles): maxElegibles = len(elegibles)
 
-        if (len(elegibles) == 0 and continuar):  # No encuentra solución
-            print('error. nos hemos quedado sin elegibles')
+        if (len(elegibles) == 0):
+            print('Error. Nos hemos quedado sin elegibles')
             continuar = False
+            return
 
 #       for i in range(nodoObjetivo.coste, 0, -1):
 #           solucion.insert(0, cerrados[i])

@@ -30,14 +30,14 @@ def Anchura(num, nCoches, semilla):
         nodoFrontera = elegibles.pop(0)
 
         nodosExplorados += 1        #Preguntar si ha sido visitado un estado cuenta como explorar un nodo
-        if (not (nodoFrontera.estado in cerrados)):
+        if (not (nodoFrontera in cerrados)):
 
             if (esSolucion(nodoFrontera.estado, n)):
                 continuar = False
                 nodoObjetivo = nodoFrontera
                 solucion.insert(0, nodoObjetivo)
             else:
-                cerrados.append(nodoFrontera.estado)
+                cerrados.append(nodoFrontera)
                 listaAcciones = AccionesPosibles(maze, n, nodoFrontera.estado)
                 if(len(listaAcciones) > 0):
                     nodosExpandidos +=1
@@ -47,9 +47,9 @@ def Anchura(num, nCoches, semilla):
                     if (len(elegibles) > maxElegibles): maxElegibles = len(elegibles)
 
         if (len(elegibles) == 0):
-            print('error. nos hemos quedado sin elegibles')
+            print('Error. Nos hemos quedado sin elegibles')
             continuar = False
-
+            return
     while (solucion[0].padre != None):
         solucion.insert(0, solucion[0].padre)
 
