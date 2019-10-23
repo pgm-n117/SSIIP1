@@ -18,8 +18,13 @@ class Nodo:
         #return self.edad >= persona.edad
 
     def __eq__(self, nodo):     #Comparacion equals
-        return ((self.estado == nodo.estado) and (self.coste == nodo.coste))
+        if isinstance(nodo, self.__class__):
+            return ((self.estado == nodo.estado) and (self.coste == nodo.coste))
+        else:
+            return False
 
+    def __ne__(self, nodo):
+        return not self.__eq__(nodo)
 
 
 #Solucion del problema
