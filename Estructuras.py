@@ -19,7 +19,12 @@ class Nodo:
 
     def __eq__(self, nodo):     #Comparacion equals
         if isinstance(nodo, self.__class__):
-            return ((self.estado == nodo.estado) and (self.coste == nodo.coste))
+            selfE=self.estado[:]       #Copiamos y ordenamos los estados para poder comparar solo las posiciones de los coches
+            nodoE=nodo.estado[:]       #Asi comparamos todas las permitaciones de coches en el mismo estado
+            selfE.sort()
+            nodoE.sort()
+            return (selfE == nodoE)
+            #return ((self.estado == nodo.estado) and (self.coste == nodo.coste)) #Solo debe comparar estados.
         else:
             return False
 
