@@ -7,7 +7,8 @@ from Maze import *
 def Profundidad(num, nCoches, semilla, limite):
     global maze, n, nCars
     maze = getProblemInstance(num, nCoches, semilla)
-    print(maze)
+    for i in range(num):
+        print(maze[i])
 
     n = num  # Tamaño del problema
     nCars = nCoches  # Número de coches
@@ -22,39 +23,34 @@ def Profundidad(num, nCoches, semilla, limite):
     nodoObjetivo = None
     nodosCreados += 1
     elegibles = [NodoInicial]
-    maxElegibles = 0;
-    cerrados = []
+    maxElegibles = 1;
+    cerrados = [] # Nodos cerrados que conservamos. en su conjunto es la rama que se está explorando
     solucion = []
-    eCerrados = []  # Estados visitados
+    #eCerrados = []  # Estados visitados
     while (continuar):
         nodoFrontera = elegibles.pop(0)  # Sacamos el nodo en cabeza
 
-        if(len(elegibles) > maxElegibles): maxElegibles = len(elegibles)
+        #if(len(elegibles) > maxElegibles): maxElegibles = len(elegibles)
 
         nodosExplorados += 1        #Preguntar si ha sido visitado un estado cuenta como explorar un nodo
-        if (not (nodoFrontera.estado in eCerrados)):
+        if (not (nodoFrontera in cerrados)):
             if (esSolucion(nodoFrontera.estado, n)):
                 continuar = False
                 nodoObjetivo = nodoFrontera
                 solucion.insert(0, nodoObjetivo)
                 #cerrados.insert(nodoObjetivo.coste, nodoObjetivo)
-                if (len(cerrados) > nodoObjetivo.coste + 1):
-                    cerrados.pop(nodoObjetivo.coste + 1)
+                #if (len(cerrados) > nodoObjetivo.coste + 1):
+                #    cerrados.pop(nodoObjetivo.coste + 1)
             else:
-                #cerrados.insert(nodoFrontera.coste, nodoFrontera)
-                eCerrados.append(nodoFrontera.estado)
+                if (len(cerrados) > nodoFrontera.coste):  # Borramos el nodo en el que no encontramos solución (Backtracking)
+                    cerrados.pop(nodoFrontera.coste)
+                cerrados.append(nodoFrontera)
 
- #               if (len(cerrados) > nodoFrontera.coste + 1):  # Borramos el nodo en el que no encontramos solución (Backtracking)
- #                   cerrados.pop(nodoFrontera.coste + 1)
- #                   eCerrados.pop(nodoFrontera.coste + 1)
 
                 if (limite < 0 or nodoFrontera.coste < limite):  # Si no hemos llegado al limite (en prof. limitada) o limite = -1 (prof)
                     listaAcciones = AccionesPosibles(maze, n, nodoFrontera.estado)
                     if (len(listaAcciones) > 0):
                         nodosExpandidos += 1
-                        #for nod in Sucesores(listaAcciones, nodoFrontera):
-                        #    elegibles.append(nod)
-                        #    nodosCreados += 1
                         listaSucesores = Sucesores(listaAcciones, nodoFrontera)
                         nodosCreados += len(listaSucesores)
                         elegibles = listaSucesores + elegibles
