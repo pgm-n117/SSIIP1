@@ -45,9 +45,9 @@ def AccionesPosibles(maze, n, estado):
     return acciones;
 
 #Calcula la heurística de un nodo, devuelve la distancia en linea recta desde un coche hasta la última fila
-def Heuristica(n, nod):
+def Heuristica(n, estado):
     h=0
-    for pos in nod.estado:
+    for pos in estado:
         h += ((n-1)-pos[1])
     return h;
 

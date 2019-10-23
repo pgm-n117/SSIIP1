@@ -18,7 +18,7 @@ def primeroMejor(num, nCoches, semilla):
     insertado = False
 
     NodoInicial = Nodo(None, None, 0, None, None, eInicial(maze, n, nCars))
-
+    NodoInicial.heur = Heuristica(n, NodoInicial.estado)
     nodoFrontera = None  # Nodo actual en cada iteración
 
     nodosCreados+=1
@@ -45,7 +45,7 @@ def primeroMejor(num, nCoches, semilla):
                     nodosExpandidos +=1
                     for nod in Sucesores(listaAcciones, nodoFrontera):
                         insertado = False
-                        nod.heur = Heuristica(n, nod)
+                        nod.heur = Heuristica(n, nod.estado)
                         for i in range(len(elegibles)):
                             #Insertamos cada nodo, ordenado por coste, y además por orden de generación
                             if (nod.heur < elegibles[i].heur):
