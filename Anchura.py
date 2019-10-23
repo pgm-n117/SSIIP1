@@ -41,9 +41,9 @@ def Anchura(num, nCoches, semilla):
                 listaAcciones = AccionesPosibles(maze, n, nodoFrontera.estado)
                 if(len(listaAcciones) > 0):
                     nodosExpandidos +=1
-                    for nod in Sucesores(listaAcciones, nodoFrontera):
-                        elegibles.append(nod)
-                        nodosCreados += 1
+                    listaSucesores = Sucesores(listaAcciones, nodoFrontera)
+                    nodosCreados += len(listaSucesores)
+                    elegibles += listaSucesores
                     if (len(elegibles) > maxElegibles): maxElegibles = len(elegibles)
 
         if (len(elegibles) == 0):
