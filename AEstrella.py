@@ -35,14 +35,14 @@ def AEstrella(num, nCoches, semilla):
         nodoFrontera = elegibles.pop(0)
 
         nodosExplorados += 1        #Preguntar si ha sido visitado un estado cuenta como explorar un nodo
-        if (not (nodoFrontera.estado in cerrados)):
+        if (not (nodoFrontera in cerrados)):
 
             if (esSolucion(nodoFrontera.estado, n)):
                 continuar = False
                 nodoObjetivo = nodoFrontera
                 solucion.insert(0, nodoObjetivo)
             else:
-                cerrados.append(nodoFrontera.estado)
+                cerrados.append(nodoFrontera)
                 listaAcciones = AccionesPosibles(maze, n, nodoFrontera.estado)
                 if(len(listaAcciones) > 0):
                     nodosExpandidos +=1
