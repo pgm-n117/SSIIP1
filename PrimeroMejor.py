@@ -23,7 +23,8 @@ def primeroMejor(num, nCoches, semilla):
 
     nodosCreados+=1
     elegibles=[NodoInicial]
-    maxElegibles = 0
+    maxElegibles = 1
+    maxNodos = 1
     cerrados=[]
     solucion=[]
 
@@ -58,8 +59,12 @@ def primeroMejor(num, nCoches, semilla):
 
                         nodosCreados += 1
 
-                    if (len(elegibles) > maxElegibles):
-                        maxElegibles = len(elegibles)
+                    lenEleg = len(elegibles)
+                    lenMaxN = lenEleg + len(cerrados)
+                    if (lenEleg > maxElegibles):
+                        maxElegibles = lenEleg
+                    if (lenMaxN > maxNodos):
+                        maxNodos = lenMaxN
 
         if (len(elegibles) == 0):
             print('Error. Nos hemos quedado sin elegibles')
@@ -77,5 +82,6 @@ def primeroMejor(num, nCoches, semilla):
     print("Nodos Expandidos: " + str(nodosExpandidos))
     print("Nodos Explorados: " + str(nodosExplorados))
     print("Máximo número de nodos abiertos " + str(maxElegibles))
+    print("Máximo número de nodos en memoria " + str(maxNodos))
 
     return;

@@ -22,7 +22,8 @@ def Anchura(num, nCoches, semilla):
     nodoObjetivo = None
     nodosCreados += 1
     elegibles = [NodoInicial]   #Lista de nodos que quedan por explorar
-    maxElegibles = 0;
+    maxElegibles = 1
+    maxNodos = 1
     cerrados = []               #lista de estados visitados
     solucion = []
 
@@ -44,7 +45,13 @@ def Anchura(num, nCoches, semilla):
                     listaSucesores = Sucesores(listaAcciones, nodoFrontera)
                     nodosCreados += len(listaSucesores)
                     elegibles += listaSucesores
-                    if (len(elegibles) > maxElegibles): maxElegibles = len(elegibles)
+
+                    lenEleg = len(elegibles)
+                    lenMaxN = lenEleg + len(cerrados)
+                    if (lenEleg > maxElegibles):
+                        maxElegibles = lenEleg
+                    if (lenMaxN > maxNodos):
+                        maxNodos = lenMaxN
 
         if (len(elegibles) == 0):
             print('Error. Nos hemos quedado sin elegibles')
@@ -61,5 +68,6 @@ def Anchura(num, nCoches, semilla):
     print("Nodos Expandidos: " + str(nodosExpandidos))
     print("Nodos Explorados: " + str(nodosExplorados))
     print("Máximo número de nodos abiertos " + str(maxElegibles))
+    print("Máximo número de nodos en memoria " + str(maxNodos))
 
     return;

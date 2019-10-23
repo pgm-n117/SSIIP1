@@ -23,7 +23,8 @@ def Profundidad(num, nCoches, semilla, limite):
     nodoObjetivo = None
     nodosCreados += 1
     elegibles = [NodoInicial]
-    maxElegibles = 1;
+    maxElegibles = 1
+    maxNodos = 1
     cerrados = [] # Nodos cerrados que conservamos. en su conjunto es la rama que se está explorando
     solucion = []
     #eCerrados = []  # Estados visitados
@@ -54,7 +55,13 @@ def Profundidad(num, nCoches, semilla, limite):
                         listaSucesores = Sucesores(listaAcciones, nodoFrontera)
                         nodosCreados += len(listaSucesores)
                         elegibles = listaSucesores + elegibles
-                        if (len(elegibles) > maxElegibles): maxElegibles = len(elegibles)
+
+                        lenEleg = len(elegibles)
+                        lenMaxN = lenEleg + len(cerrados)
+                        if (lenEleg > maxElegibles):
+                            maxElegibles = lenEleg
+                        if (lenMaxN > maxNodos):
+                            maxNodos = lenMaxN
 
         if (len(elegibles) == 0):
             print('Error. Nos hemos quedado sin elegibles')
@@ -74,4 +81,6 @@ def Profundidad(num, nCoches, semilla, limite):
     print("Nodos Expandidos: " + str(nodosExpandidos))
     print("Nodos Explorados: " + str(nodosExplorados))
     print("Máximo número de nodos abiertos " + str(maxElegibles))
+    print("Máximo número de nodos en memoria " + str(maxNodos))
+    
     return;
