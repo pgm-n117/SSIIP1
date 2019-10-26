@@ -4,7 +4,8 @@ from Estructuras.Maze import *
 def primeroMejor(num, nCoches, semilla):
     global maze,n,nCars
     maze=getProblemInstance(num, nCoches, semilla)
-    print(maze)
+    for i in range(num):
+        print(maze[i])
 
     n=num                   #Tamaño del problema
     nCars=nCoches           #Número de coches
@@ -73,7 +74,7 @@ def primeroMejor(num, nCoches, semilla):
         solucion.insert(0, solucion[0].padre)
 
     for nod in solucion:
-        print(nod.estado)
+        print(nod.accion)
 
     print("Coste de la solución: " + str(nodoObjetivo.coste))
     print("Nodos Generados: " + str(nodosCreados))

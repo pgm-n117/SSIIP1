@@ -4,7 +4,8 @@ from Estructuras.Maze import *
 def AEstrella(num, nCoches, semilla):
     global maze,n,nCars
     maze=getProblemInstance(num, nCoches, semilla)
-    print(maze)
+    for i in range(num):
+        print(maze[i])
 
     n=num                   #Tamaño del problema
     nCars=nCoches           #Número de coches

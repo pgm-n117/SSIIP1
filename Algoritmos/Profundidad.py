@@ -72,7 +72,7 @@ def Profundidad(num, nCoches, semilla, limite):
         solucion.insert(0, solucion[0].padre)
 
     for nod in solucion:
-        print(nod.estado)
+        print(nod.accion)
 
     print("Coste de la solución: " + str(nodoObjetivo.coste))
     print("Nodos Generados: " + str(nodosCreados))
