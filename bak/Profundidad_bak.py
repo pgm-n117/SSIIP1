@@ -1,6 +1,5 @@
-from Estructuras_ import *
-from Methods import *
-from Estructuras_.Maze import *
+from Metodos.Metodos import *
+from bak.Estructuras_ import *
 
 
 def Profundidad(num, nCoches, semilla, limite):

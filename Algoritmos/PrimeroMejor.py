@@ -1,4 +1,4 @@
-from Methods import *
+from Metodos.Metodos import *
 from Estructuras.Maze import *
 
 def primeroMejor(num, nCoches, semilla):
