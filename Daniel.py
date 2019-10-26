@@ -1,13 +1,9 @@
 
 #!/usr/bin/python3
 
-from Maze import *
-from Methods import *
-from Estructuras import *
 from argparse import ArgumentParser
-import sys
 from time import time
-#from libreria import funcion as fn
+
 
 if __name__ == "__main__":
 
@@ -32,23 +28,20 @@ if __name__ == "__main__":
     tiempoInicio = time()
 
     if(args.algoritmo=='anchura'):
-        from Anchura import *
+        from Algoritmos.Anchura import *
         Anchura(args.n,args.nCars, args.seed)
     elif(args.algoritmo=='profundidad'):
-        from Profundidad import *
+        from Algoritmos.Profundidad import *
         Profundidad(args.n,args.nCars, args.seed, args.limite)
     elif(args.algoritmo=='AEstrella'):
-        from AEstrella import *
+        from Algoritmos.AEstrella import *
         AEstrella(args.n, args.nCars, args.seed)
     elif (args.algoritmo == 'primeroMejor'):
-        from PrimeroMejor import *
+        from Algoritmos.PrimeroMejor import *
         primeroMejor(args.n, args.nCars, args.seed)
     elif (args.algoritmo == 'costeUniforme'):
-        from CosteUniforme import *
+        from Algoritmos.CosteUniforme import *
         costeUniforme(args.n, args.nCars, args.seed)
-    '''
-    if(args.n<12):
-        print(maze)
-    '''
+
 
     print("Tiempo de ejecución: " + str(time()- tiempoInicio))

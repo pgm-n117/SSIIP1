@@ -1,14 +1,7 @@
 # !/usr/bin/python3
 
-import sys, getopt, Maze
-from Nodo import *
-from Methods import *
-from Accion import *
-from Estructuras import *
-from Anchura import *
-from Profundidad import *
-from AEstrella import *
-from Maze import *
+from Algoritmos.Anchura import *
+from Estructuras.Maze import *
 '''
 secuencia = None
 estado = None
@@ -33,8 +26,8 @@ def main(argv):
 
     #Profundidad(maze, n, nCars, -1) #Maze(Problema), tamaño, nCoches
     #Profundidad(5, 2, 100, -1)
-    #Anchura(5, 2, 100)
-    AEstrella(5, 2, 100)
+    Anchura(5, 2, 2)
+
 
     return (0)
 

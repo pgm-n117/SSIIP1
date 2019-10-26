@@ -1,7 +1,5 @@
-import sys, getopt
-from Estructuras import *
 from Methods import *
-from Maze import *
+from Estructuras.Maze import *
 
 def AEstrella(num, nCoches, semilla):
     global maze,n,nCars
@@ -78,7 +76,7 @@ def AEstrella(num, nCoches, semilla):
         solucion.insert(0, solucion[0].padre)
 
     for nod in solucion:
-        print(nod.estado)
+        print(nod.accion)
 
     print("Coste de la solución: " + str(nodoObjetivo.coste))
     print("Nodos Generados: " + str(nodosCreados))

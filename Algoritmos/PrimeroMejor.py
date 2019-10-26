@@ -1,9 +1,7 @@
-import sys, getopt
-from Estructuras import *
 from Methods import *
-from Maze import *
+from Estructuras.Maze import *
 
-def costeUniforme(num, nCoches, semilla):
+def primeroMejor(num, nCoches, semilla):
     global maze,n,nCars
     maze=getProblemInstance(num, nCoches, semilla)
     print(maze)
@@ -18,7 +16,7 @@ def costeUniforme(num, nCoches, semilla):
     insertado = False
 
     NodoInicial = Nodo(None, None, 0, None, None, eInicial(maze, n, nCars))
-
+    NodoInicial.heur = Heuristica(n, NodoInicial.estado)
     nodoFrontera = None  # Nodo actual en cada iteración
 
     nodosCreados+=1
@@ -46,9 +44,10 @@ def costeUniforme(num, nCoches, semilla):
                     nodosExpandidos +=1
                     for nod in Sucesores(listaAcciones, nodoFrontera):
                         insertado = False
+                        nod.heur = Heuristica(n, nod.estado)
                         for i in range(len(elegibles)):
                             #Insertamos cada nodo, ordenado por coste, y además por orden de generación
-                            if (nod.coste < elegibles[i].coste):
+                            if (nod.heur < elegibles[i].heur):
                                 elegibles.insert(i, nod)
                                 insertado = True
                                 break

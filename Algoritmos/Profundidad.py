@@ -1,7 +1,5 @@
-import sys, getopt
-from Estructuras import *
 from Methods import *
-from Maze import *
+from Estructuras.Maze import *
 
 
 def Profundidad(num, nCoches, semilla, limite):

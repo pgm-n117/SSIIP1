@@ -1,33 +1,29 @@
-import sys, getopt
-from Estructuras import *
 from Methods import *
-from Maze import *
+from Estructuras.Maze import *
 
-def primeroMejor(num, nCoches, semilla):
-    global maze,n,nCars
-    maze=getProblemInstance(num, nCoches, semilla)
+
+def Anchura(num, nCoches, semilla):
+    global maze, n, nCars
+    maze = getProblemInstance(num, nCoches, semilla)
     print(maze)
 
-    n=num                   #Tamaño del problema
-    nCars=nCoches           #Número de coches
+    n = num  # Tamaño del problema
+    nCars = nCoches  # Número de coches
 
-    nodosCreados=0          #Nodos creados añadidos a abiertos
-    nodosExplorados=0       #Nodos explorados, a los que hemos preguntado si son solución
-    nodosExpandidos = 0     #Nodos expandidos
+    nodosCreados = 0
+    nodosExplorados = 0
+    nodosExpandidos = 0       #Nodos expandidos
     continuar = True
-    insertado = False
 
     NodoInicial = Nodo(None, None, 0, None, None, eInicial(maze, n, nCars))
-    NodoInicial.heur = Heuristica(n, NodoInicial.estado)
     nodoFrontera = None  # Nodo actual en cada iteración
-
-    nodosCreados+=1
-    elegibles=[NodoInicial]
+    nodoObjetivo = None
+    nodosCreados += 1
+    elegibles = [NodoInicial]   #Lista de nodos que quedan por explorar
     maxElegibles = 1
     maxNodos = 1
-    cerrados=[]
-    solucion=[]
-
+    cerrados = []               #lista de estados visitados
+    solucion = []
 
     while (continuar):
         nodoFrontera = elegibles.pop(0)
@@ -44,20 +40,9 @@ def primeroMejor(num, nCoches, semilla):
                 listaAcciones = AccionesPosibles(maze, n, nodoFrontera.estado)
                 if(len(listaAcciones) > 0):
                     nodosExpandidos +=1
-                    for nod in Sucesores(listaAcciones, nodoFrontera):
-                        insertado = False
-                        nod.heur = Heuristica(n, nod.estado)
-                        for i in range(len(elegibles)):
-                            #Insertamos cada nodo, ordenado por coste, y además por orden de generación
-                            if (nod.heur < elegibles[i].heur):
-                                elegibles.insert(i, nod)
-                                insertado = True
-                                break
-                        #Si su coste era mayor que todos los de abiertos, y no ha sido insertado, se inserta al final
-                        if(insertado == False):
-                            elegibles.append(nod)
-
-                        nodosCreados += 1
+                    listaSucesores = Sucesores(listaAcciones, nodoFrontera)
+                    nodosCreados += len(listaSucesores)
+                    elegibles += listaSucesores
 
                     lenEleg = len(elegibles)
                     lenMaxN = lenEleg + len(cerrados)
@@ -70,12 +55,11 @@ def primeroMejor(num, nCoches, semilla):
             print('Error. Nos hemos quedado sin elegibles')
             continuar = False
             return
-
     while (solucion[0].padre != None):
         solucion.insert(0, solucion[0].padre)
 
     for nod in solucion:
-        print(nod.estado)
+        print(nod.accion)
 
     print("Coste de la solución: " + str(nodoObjetivo.coste))
     print("Nodos Generados: " + str(nodosCreados))

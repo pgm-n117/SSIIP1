@@ -1,7 +1,5 @@
-
-import sys, getopt, Maze
-#from Accion import *
-from Estructuras import *
+from Estructuras.Accion import *
+from Estructuras.Nodo import *
 
 
 #suma 2 Tuplas x con x e y con y
