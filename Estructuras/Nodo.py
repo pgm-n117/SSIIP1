@@ -16,6 +16,14 @@ class Nodo:
         #return self.edad >= persona.edad
 
     def __eq__(self, nodo):     #Comparacion equals
+        if isinstance(nodo, self.__class__):    #mucho mas eficiente
+            for coche in self.estado:
+                if(not(coche in nodo.estado)):
+                    return False
+            return True
+        else:
+            return False
+    '''
         if isinstance(nodo, self.__class__):
             selfE=self.estado[:]       #Copiamos y ordenamos los estados para poder comparar solo las posiciones de los coches
             nodoE=nodo.estado[:]       #Asi comparamos todas las permitaciones de coches en el mismo estado
@@ -25,12 +33,8 @@ class Nodo:
             #return ((self.estado == nodo.estado) and (self.coste == nodo.coste)) #Solo debe comparar estados.
         else:
             return False
-
+    '''
     def __ne__(self, nodo):
         return not self.__eq__(nodo)
     def __str__(self):
         return str("Estado: "+ self.estado + ", Coste: "+self.coste)
-
-
-
-
