@@ -16,9 +16,11 @@ def AEstrella(num, nCoches, semilla):
     continuar = True
     insertado = False
 
+
+
     #Obtenemos el nodo inicial, calculamos su heurística y su función de evaluación
     NodoInicial = Nodo(None, None, 0, None, None, eInicial(maze, n, nCars))
-    NodoInicial.heur = Heuristica(n, NodoInicial.estado)
+    NodoInicial.heur = Heuristica(n, NodoInicial.estado,maze)
     NodoInicial.eval = NodoInicial.coste + NodoInicial.heur
 
     nodoFrontera = None  # Nodo actual en cada iteración
@@ -31,12 +33,19 @@ def AEstrella(num, nCoches, semilla):
     solucion=[]
 
 
+
     while (continuar):
         nodoFrontera = elegibles.pop(0)
 
         nodosExplorados += 1        #Preguntar si ha sido visitado un estado cuenta como explorar un nodo
-        if (not (nodoFrontera in cerrados)):
+        #if (not (nodoFrontera in cerrados)):
+        if (nodoFrontera in cerrados):
+            i=cerrados.index(nodoFrontera)
+            if(nodoFrontera.coste<cerrados[i].coste):
+                elegibles.insert(0,nodoFrontera)
+                nodosexplorados
 
+        else:
             if (esSolucion(nodoFrontera.estado, n)):
                 continuar = False
                 nodoObjetivo = nodoFrontera
@@ -48,7 +57,7 @@ def AEstrella(num, nCoches, semilla):
                     nodosExpandidos +=1
                     for nod in Sucesores(listaAcciones, nodoFrontera):
                         insertado = False
-                        nod.heur = Heuristica(n, nod.estado)
+                        nod.heur = Heuristica(n, nod.estado, maze)
                         nod.eval = nod.coste + nod.heur
                         for i in range(len(elegibles)):
                             #Insertamos cada nodo, ordenado por evaluación, y además por orden de generación
