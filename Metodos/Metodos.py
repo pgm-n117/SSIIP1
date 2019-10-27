@@ -2,6 +2,8 @@ from Estructuras.Accion import *
 from Estructuras.Nodo import *
 
 
+
+
 #suma 2 Tuplas x con x e y con y
 def SumaTuplas(a,b):
     return (a[0]+b[0],a[1]+b[1])
@@ -42,15 +44,34 @@ def AccionesPosibles(maze, n, estado):
                 acciones.append(Accion(coche,dir[direccion]))
     return acciones;
 
+def InicializaHeuristica(n,maze):
+    global matrizH
+    matrizH=[[0 for i in range(n)]for j in range(n)]
+    for distanciafinal in range(n-2,-1,-1):
+        for x in range(0,n):
+            if (maze[distanciafinal][x]==-1):
+                if(x==0): matrizH[distanciafinal][x]=matrizH[distanciafinal+1][x+1]+2
+                elif(x==n-1): matrizH[distanciafinal][x]=matrizH[distanciafinal+1][x-1]+2
+                else: matrizH[distanciafinal][x]=min([matrizH[distanciafinal+1][x-1],matrizH[distanciafinal+1][x+1]])+2
+            else:
+                matrizH[distanciafinal][x]=matrizH[distanciafinal+1][x]+1
+    for i in range(n):
+        print(matrizH[i])
+    return;
 #Calcula la heurística de un nodo, devuelve la distancia en linea recta desde un coche hasta la última fila
-def Heuristica(n, estado, maze):
+def Heuristica(estado):
+    h=0
+    for pos in estado:
+        h += matrizH[pos[0]][pos[1]]
+    return h;
+'''
     h=0
     for pos in estado:
         h += ((n-1)-pos[1])
         if(-1 in ([maze[i][pos[0]] for i in range(pos[1],n)])):
             h+=1
     return h;
-
+'''
 
 
 #Comprobamos si un estado es una solución

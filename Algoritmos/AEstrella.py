@@ -16,11 +16,11 @@ def AEstrella(num, nCoches, semilla):
     continuar = True
     insertado = False
 
-
+    InicializaHeuristica(n,maze)
 
     #Obtenemos el nodo inicial, calculamos su heurística y su función de evaluación
     NodoInicial = Nodo(None, None, 0, None, None, eInicial(maze, n, nCars))
-    NodoInicial.heur = Heuristica(n, NodoInicial.estado,maze)
+    NodoInicial.heur = Heuristica(NodoInicial.estado)
     NodoInicial.eval = NodoInicial.coste + NodoInicial.heur
 
     nodoFrontera = None  # Nodo actual en cada iteración
@@ -57,7 +57,7 @@ def AEstrella(num, nCoches, semilla):
                     nodosExpandidos +=1
                     for nod in Sucesores(listaAcciones, nodoFrontera):
                         insertado = False
-                        nod.heur = Heuristica(n, nod.estado, maze)
+                        nod.heur = Heuristica(nod.estado)
                         nod.eval = nod.coste + nod.heur
                         for i in range(len(elegibles)):
                             #Insertamos cada nodo, ordenado por evaluación, y además por orden de generación
