@@ -52,7 +52,7 @@ def AEstrella(num, nCoches, semilla):
             if(nodoFrontera.coste<cerrados[i].coste):
                 elegibles.insert(0,nodoFrontera)
                 cerrados.pop(i)
-                nodosexplorados-=1
+                nodosExplorados-=1
 
         else:
             if (esSolucion(nodoFrontera.estado, n)):
