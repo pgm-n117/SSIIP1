@@ -50,9 +50,24 @@ def InicializaHeuristica(n,maze):
     for distanciafinal in range(n-2,-1,-1):
         for x in range(0,n):
             if (maze[distanciafinal][x]==-1):
-                if(x==0): matrizH[distanciafinal][x]=matrizH[distanciafinal+1][x+1]+2
-                elif(x==n-1): matrizH[distanciafinal][x]=matrizH[distanciafinal+1][x-1]+2
-                else: matrizH[distanciafinal][x]=min([matrizH[distanciafinal+1][x-1],matrizH[distanciafinal+1][x+1]])+2
+                matrizH[distanciafinal][x]=matrizH[distanciafinal+1][x]+2
+            elif (maze[distanciafinal+1][x]==-1):
+                if(x==0):
+                    if(maze[distanciafinal][x+1]==-1):
+                        matrizH[distanciafinal][x]=matrizH[distanciafinal+1][x+1]+5
+                    else:
+                        matrizH[distanciafinal][x]=matrizH[distanciafinal+1][x+1]+2
+                elif(x==n-1):
+                    if(maze[distanciafinal][x-1]==-1):
+                        matrizH[distanciafinal][x]=matrizH[distanciafinal+1][x-1]+5
+                    else:
+                        matrizH[distanciafinal][x]=matrizH[distanciafinal+1][x-1]+2
+                else:
+                    i=2
+                    d=2
+                    if(maze[distanciafinal][x+1]==-1): d+=3
+                    if(maze[distanciafinal][x-1]==-1): i+=3
+                    matrizH[distanciafinal][x]=min([matrizH[distanciafinal+1][x-1]+i,matrizH[distanciafinal+1][x+1]+d])
             else:
                 matrizH[distanciafinal][x]=matrizH[distanciafinal+1][x]+1
     for i in range(n):
@@ -63,7 +78,7 @@ def InicializaHeuristica(n,maze):
 def Heuristica(estado):
     h=0
     for pos in estado:
-        h += matrizH[pos[0]][pos[1]]
+        h += matrizH[pos[1]][pos[0]]
     return h;
 '''
     h=0
