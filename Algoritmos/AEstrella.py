@@ -4,8 +4,16 @@ from Estructuras.Maze import *
 def AEstrella(num, nCoches, semilla):
     global maze,n,nCars
     maze=getProblemInstance(num, nCoches, semilla)
+
+    mazePreview=[[" " for i in range(num)]for j in range(num)]
+    mazePreview[0]=maze[0][:]
+    for i in range(1,num):
+        for j in range(num):
+            if(maze[i][j]==-1):
+                mazePreview[i][j]="x"
+
     for i in range(num):
-        print(maze[i])
+        print(mazePreview[i])
 
     n=num                   #Tamaño del problema
     nCars=nCoches           #Número de coches
@@ -43,7 +51,8 @@ def AEstrella(num, nCoches, semilla):
             i=cerrados.index(nodoFrontera)
             if(nodoFrontera.coste<cerrados[i].coste):
                 elegibles.insert(0,nodoFrontera)
-                nodosexplorados
+                cerrados.pop(i)
+                nodosexplorados-=1
 
         else:
             if (esSolucion(nodoFrontera.estado, n)):

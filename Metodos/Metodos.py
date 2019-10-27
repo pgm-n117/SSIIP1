@@ -58,6 +58,7 @@ def InicializaHeuristica(n,maze):
     for i in range(n):
         print(matrizH[i])
     return;
+
 #Calcula la heurística de un nodo, devuelve la distancia en linea recta desde un coche hasta la última fila
 def Heuristica(estado):
     h=0
