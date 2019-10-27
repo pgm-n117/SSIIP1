@@ -1,5 +1,6 @@
 from Metodos.Metodos import *
 from Estructuras.Maze import *
+import bisect
 
 def AEstrella(num, nCoches, semilla):
     global maze,n,nCars
@@ -52,7 +53,7 @@ def AEstrella(num, nCoches, semilla):
             if(nodoFrontera.coste<cerrados[i].coste):
                 elegibles.insert(0,nodoFrontera)
                 cerrados.pop(i)
-                nodosExplorados-=1
+                #nodosExplorados-=1
 
         else:
             if (esSolucion(nodoFrontera.estado, n)):
@@ -65,9 +66,13 @@ def AEstrella(num, nCoches, semilla):
                 if(len(listaAcciones) > 0):
                     nodosExpandidos +=1
                     for nod in Sucesores(listaAcciones, nodoFrontera):
-                        insertado = False
+#                        insertado = False
                         nod.heur = Heuristica(nod.estado)
                         nod.eval = nod.coste + nod.heur
+
+                        bisect.insort(elegibles, nod)  # Inserción por biseccion
+
+                        '''
                         for i in range(len(elegibles)):
                             #Insertamos cada nodo, ordenado por evaluación, y además por orden de generación
                             if (nod.eval < elegibles[i].eval):
@@ -77,8 +82,9 @@ def AEstrella(num, nCoches, semilla):
                         #Si su evaluacion era mayor que todos los de abiertos, y no ha sido insertado, se inserta al final
                         if(insertado == False):
                             elegibles.append(nod)
-
+                        '''
                         nodosCreados += 1
+
                     lenEleg = len(elegibles)
                     lenMaxN = lenEleg + len(cerrados)
                     if (lenEleg > maxElegibles):

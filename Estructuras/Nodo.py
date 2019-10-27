@@ -9,12 +9,15 @@ class Nodo:
         self.estado = estado    # Lista de tuplas que contiene la posiciones de los coches en el Maze
 
 
-    #def __gt__(self, nodo):     #Comparacion greater than
-        #return self.edad > persona.edad
 
-    #def __ge__(self, nodo):     #Comparacion greater or equal than
-        #return self.edad >= persona.edad
-
+    def __gt__(self, nodo):     #Comparacion greater than
+        if isinstance(nodo, self.__class__):
+            return self.eval > nodo.eval
+    '''
+    def __ge__(self, nodo):     #Comparacion greater or equal than
+        if isinstance(nodo, self.__class__):
+            return self.eval >= nodo.eval
+    '''
     def __eq__(self, nodo):     #Comparacion equals
         if isinstance(nodo, self.__class__):
             if(self.heur==None):                     #Si no trabajamos con heuristicas esta busqueda mejor
