@@ -45,17 +45,16 @@ def AEstrella(num, nCoches, semilla):
 
     while (continuar):
         nodoFrontera = elegibles.pop(0)
-
         nodosExplorados += 1        #Preguntar si ha sido visitado un estado cuenta como explorar un nodo
         #if (not (nodoFrontera in cerrados)):
-        if (nodoFrontera in cerrados):
+        sCerrado=nodoFrontera in cerrados
+        if (esCerrado):
             i=cerrados.index(nodoFrontera)
             if(nodoFrontera.coste<cerrados[i].coste):
                 elegibles.insert(0,nodoFrontera)
                 cerrados.pop(i)
-                #nodosExplorados-=1
-
-        else:
+                esCerrado=False
+        if(not(esCerrado)):
             if (esSolucion(nodoFrontera.estado, n)):
                 continuar = False
                 nodoObjetivo = nodoFrontera
