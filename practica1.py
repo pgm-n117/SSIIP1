@@ -14,7 +14,7 @@ if __name__ == "__main__":
     parser.add_argument('n', type=int, help='tamaño del problema')
     parser.add_argument('nCars', type=int, help='numero de coches')
     parser.add_argument('seed', type=int, help='semilla para funcion random')
-    parser.add_argument('algoritmo', choices=['anchura', 'profundidad', 'AEstrella', 'primeroMejor', 'costeUniforme'])
+    parser.add_argument('algoritmo', choices=['anchura', 'profundidad', 'AEstrella', 'primeroMejor', 'costeUniforme'], help='Algoritmo con el que se abordará el ejercicio')
     parser.add_argument('--limite', '-l',  help='limite en profundidad limitada', type=int, default=-1)
     args = parser.parse_args()
 
