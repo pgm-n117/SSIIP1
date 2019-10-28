@@ -10,7 +10,7 @@ def Profundidad(num, nCoches, semilla, limite):
 
     maze = getProblemInstance(num, nCoches, semilla)
 
-    mazePreview(num, maze, False)
+    mazePreview(num, maze)
 
     n = num             #Tamaño del problema
     nCars = nCoches     #Número de coches
@@ -73,8 +73,6 @@ def Profundidad(num, nCoches, semilla, limite):
             continuar = False
             return
 
-#       for i in range(nodoObjetivo.coste, 0, -1):
-#           solucion.insert(0, cerrados[i])
     while (solucion[0].padre != None):
         solucion.insert(0, solucion[0].padre)
 

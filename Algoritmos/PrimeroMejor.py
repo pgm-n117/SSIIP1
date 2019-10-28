@@ -10,7 +10,7 @@ def primeroMejor(num, nCoches, semilla):
     global maze,n,nCars
     maze=getProblemInstance(num, nCoches, semilla)
 
-    mazePreview(num, maze, True)
+    mazePreview(num, maze)
 
     n = num             #Tamaño del problema
     nCars = nCoches     #Número de coches

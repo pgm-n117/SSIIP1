@@ -9,7 +9,7 @@ def costeUniforme(num, nCoches, semilla):
     global maze,n,nCars
     maze=getProblemInstance(num, nCoches, semilla)
 
-    mazePreview(num, maze, False)
+    mazePreview(num, maze)
 
     n = num             #Tamaño del problema
     nCars = nCoches     #Número de coches

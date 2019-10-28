@@ -10,7 +10,7 @@ def AEstrella(num, nCoches, semilla):
     global maze,n,nCars
     maze=getProblemInstance(num, nCoches, semilla)
 
-    mazePreview(num, maze, True)
+    mazePreview(num, maze)
 
     n = num             #Tamaño del problema
     nCars = nCoches     #Número de coches
@@ -69,7 +69,7 @@ def AEstrella(num, nCoches, semilla):
 
                         heappush(elegibles, nod)
 
-                        #bisect.insort(elegibles, nod)  # Inserción por biseccion
+                        #bisect.insort_left(elegibles, nod)  # Inserción por biseccion
 
                         nodosCreados += 1
 
