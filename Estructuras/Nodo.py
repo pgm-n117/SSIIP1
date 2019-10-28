@@ -12,7 +12,7 @@ class Nodo:
 
     def __gt__(self, nodo):     #Comparacion greater than, utilizada para insercion por biseccion en AEstrella
         if isinstance(nodo, self.__class__):
-            return self.eval > nodo.eval-1
+            return self.eval > nodo.eval-0.5
     '''
     def __ge__(self, nodo):     #Comparacion greater or equal than
         if isinstance(nodo, self.__class__):
