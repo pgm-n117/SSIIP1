@@ -3,6 +3,7 @@
 
 from argparse import ArgumentParser
 from time import time
+from Estructuras.Solucion import *
 
 
 if __name__ == "__main__":
@@ -25,23 +26,28 @@ if __name__ == "__main__":
     #print(maze)
 
     #Para medir el tiempo de ejecución
+    global tiempoInicio
     tiempoInicio = time()
+    solucion = Solucion(None, None, None, None, None, None, None)
 
     if(args.algoritmo=='anchura'):
         from Algoritmos.Anchura import *
-        Anchura(args.n,args.nCars, args.seed)
+        solucion = Anchura(args.n,args.nCars, args.seed)
     elif(args.algoritmo=='profundidad'):
         from Algoritmos.Profundidad import *
-        Profundidad(args.n,args.nCars, args.seed, args.limite)
+        solucion = Profundidad(args.n,args.nCars, args.seed, args.limite)
     elif(args.algoritmo=='AEstrella'):
         from Algoritmos.AEstrella import *
-        AEstrella(args.n, args.nCars, args.seed)
+        solucion = AEstrella(args.n, args.nCars, args.seed)
     elif (args.algoritmo == 'primeroMejor'):
         from Algoritmos.PrimeroMejor import *
-        primeroMejor(args.n, args.nCars, args.seed)
+        solucion = primeroMejor(args.n, args.nCars, args.seed)
     elif (args.algoritmo == 'costeUniforme'):
         from Algoritmos.CosteUniforme import *
-        costeUniforme(args.n, args.nCars, args.seed)
+        solucion = costeUniforme(args.n, args.nCars, args.seed)
 
+    tiempoFin = str(time()- tiempoInicio)
 
-    print("Tiempo de ejecución: " + str(time()- tiempoInicio))
+    solucion.printSolucion()
+
+    print("Tiempo de ejecución: " + tiempoFin)

@@ -1,5 +1,7 @@
 from Metodos.Metodos import *
 from Estructuras.Maze import *
+from Estructuras.Solucion import *
+import bisect
 
 def primeroMejor(num, nCoches, semilla):
     global maze,n,nCars
@@ -18,7 +20,7 @@ def primeroMejor(num, nCoches, semilla):
 
     InicializaHeuristica(n, maze)
 
-    NodoInicial = Nodo(None, None, 0, None, None, eInicial(maze, n, nCars))
+    NodoInicial = Nodo(None, '-Estado inicial-', 0, None, None, eInicial(maze, n, nCars))
     NodoInicial.heur = Heuristica(NodoInicial.estado)
     nodoFrontera = None  # Nodo actual en cada iteración
 
@@ -46,8 +48,14 @@ def primeroMejor(num, nCoches, semilla):
                 if(len(listaAcciones) > 0):
                     nodosExpandidos +=1
                     for nod in Sucesores(listaAcciones, nodoFrontera):
-                        insertado = False
+
                         nod.heur = Heuristica(nod.estado)
+                        nod.eval = nod.heur
+                        bisect.insort(elegibles, nod)  # Inserción por biseccion
+
+                        '''
+                        insertado = False
+                        
                         for i in range(len(elegibles)):
                             #Insertamos cada nodo, ordenado por coste, y además por orden de generación
                             if (nod.heur < elegibles[i].heur):
@@ -57,7 +65,7 @@ def primeroMejor(num, nCoches, semilla):
                         #Si su coste era mayor que todos los de abiertos, y no ha sido insertado, se inserta al final
                         if(insertado == False):
                             elegibles.append(nod)
-
+                        '''
                         nodosCreados += 1
 
                     lenEleg = len(elegibles)
@@ -75,14 +83,6 @@ def primeroMejor(num, nCoches, semilla):
     while (solucion[0].padre != None):
         solucion.insert(0, solucion[0].padre)
 
-    for nod in solucion:
-        print(nod.accion)
-
-    print("Coste de la solución: " + str(nodoObjetivo.coste))
-    print("Nodos Generados: " + str(nodosCreados))
-    print("Nodos Expandidos: " + str(nodosExpandidos))
-    print("Nodos Explorados: " + str(nodosExplorados))
-    print("Máximo número de nodos abiertos " + str(maxElegibles))
-    print("Máximo número de nodos en memoria " + str(maxNodos))
-
-    return;
+    solucionPM = Solucion(solucion, nodoObjetivo.coste, nodosCreados, nodosExpandidos, nodosExplorados,
+                                   maxElegibles, maxNodos)
+    return solucionPM

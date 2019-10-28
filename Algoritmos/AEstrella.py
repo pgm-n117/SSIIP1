@@ -1,5 +1,6 @@
 from Metodos.Metodos import *
 from Estructuras.Maze import *
+from Estructuras.Solucion import *
 import bisect
 
 def AEstrella(num, nCoches, semilla):
@@ -28,7 +29,7 @@ def AEstrella(num, nCoches, semilla):
     InicializaHeuristica(n,maze)
 
     #Obtenemos el nodo inicial, calculamos su heurística y su función de evaluación
-    NodoInicial = Nodo(None, None, 0, None, None, eInicial(maze, n, nCars))
+    NodoInicial = Nodo(None, '-Estado inicial', 0, None, None, eInicial(maze, n, nCars))
     NodoInicial.heur = Heuristica(NodoInicial.estado)
     NodoInicial.eval = NodoInicial.coste + NodoInicial.heur
 
@@ -46,13 +47,15 @@ def AEstrella(num, nCoches, semilla):
     while (continuar):
         nodoFrontera = elegibles.pop(0)
         nodosExplorados += 1        #Preguntar si ha sido visitado un estado cuenta como explorar un nodo
-        #if (not (nodoFrontera in cerrados)):
+
         esCerrado=nodoFrontera in cerrados
-        if (esCerrado):
+
+        if (esCerrado):             #Si el estado ya fue explorado, pero tiene menor coste, lo sacamos de cerrados,
             i=cerrados.index(nodoFrontera)
             if(nodoFrontera.coste<cerrados[i].coste):
                 cerrados.pop(i)
                 esCerrado=False
+
         if(not(esCerrado)):
             if (esSolucion(nodoFrontera.estado, n)):
                 continuar = False
@@ -98,14 +101,6 @@ def AEstrella(num, nCoches, semilla):
     while (solucion[0].padre != None):
         solucion.insert(0, solucion[0].padre)
 
-    for nod in solucion:
-        print(nod.accion)
-
-    print("Coste de la solución: " + str(nodoObjetivo.coste))
-    print("Nodos Generados: " + str(nodosCreados))
-    print("Nodos Expandidos: " + str(nodosExpandidos))
-    print("Nodos Explorados: " + str(nodosExplorados))
-    print("Máximo número de nodos abiertos " + str(maxElegibles))
-    print("Máximo número de nodos en memoria " + str(maxNodos))
-
-    return;
+    solucionAEstrella = Solucion(solucion, nodoObjetivo.coste, nodosCreados, nodosExpandidos, nodosExplorados,
+                                   maxElegibles, maxNodos)
+    return solucionAEstrella

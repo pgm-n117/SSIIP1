@@ -1,6 +1,8 @@
 
 from Metodos.Metodos import *
 from Estructuras.Maze import *
+from Estructuras.Solucion import *
+import bisect
 
 def costeUniforme(num, nCoches, semilla):
     global maze,n,nCars
@@ -17,7 +19,7 @@ def costeUniforme(num, nCoches, semilla):
     continuar = True
     insertado = False
 
-    NodoInicial = Nodo(None, None, 0, None, None, eInicial(maze, n, nCars))
+    NodoInicial = Nodo(None, '-Estado inicial', 0, None, None, eInicial(maze, n, nCars))
 
     nodoFrontera = None  # Nodo actual en cada iteración
 
@@ -45,6 +47,9 @@ def costeUniforme(num, nCoches, semilla):
                 if(len(listaAcciones) > 0):
                     nodosExpandidos +=1
                     for nod in Sucesores(listaAcciones, nodoFrontera):
+                        nod.eval = nod.coste
+                        bisect.insort(elegibles, nod)  # Inserción por biseccion
+                        '''
                         insertado = False
                         for i in range(len(elegibles)):
                             #Insertamos cada nodo, ordenado por coste, y además por orden de generación
@@ -55,6 +60,7 @@ def costeUniforme(num, nCoches, semilla):
                         #Si su coste era mayor que todos los de abiertos, y no ha sido insertado, se inserta al final
                         if(insertado == False):
                             elegibles.append(nod)
+                        '''
 
                         nodosCreados += 1
 
@@ -73,14 +79,6 @@ def costeUniforme(num, nCoches, semilla):
     while (solucion[0].padre != None):
         solucion.insert(0, solucion[0].padre)
 
-    for nod in solucion:
-        print(nod.estado)
-
-    print("Coste de la solución: " + str(nodoObjetivo.coste))
-    print("Nodos Generados: " + str(nodosCreados))
-    print("Nodos Expandidos: " + str(nodosExpandidos))
-    print("Nodos Explorados: " + str(nodosExplorados))
-    print("Máximo número de nodos abiertos " + str(maxElegibles))
-    print("Máximo número de nodos en memoria " + str(maxNodos))
-
-    return;
+    solucionCU = Solucion(solucion, nodoObjetivo.coste, nodosCreados, nodosExpandidos, nodosExplorados,
+                                   maxElegibles, maxNodos)
+    return solucionCU;

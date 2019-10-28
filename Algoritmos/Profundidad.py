@@ -1,5 +1,6 @@
 from Metodos.Metodos import *
 from Estructuras.Maze import *
+from Estructuras.Solucion import *
 
 
 def Profundidad(num, nCoches, semilla, limite):
@@ -16,7 +17,7 @@ def Profundidad(num, nCoches, semilla, limite):
     nodosExpandidos = 0  # Nodos expandidos, de los cuales hemos generado sus sucesores
     continuar = True
 
-    NodoInicial = Nodo(None, None, 0, None, None, eInicial(maze, n, nCars))
+    NodoInicial = Nodo(None, '-Estado inicial-', 0, None, None, eInicial(maze, n, nCars))
     nodoFrontera = None  # Nodo actual en cada iteración
     nodoObjetivo = None
     nodosCreados += 1
@@ -71,14 +72,7 @@ def Profundidad(num, nCoches, semilla, limite):
     while (solucion[0].padre != None):
         solucion.insert(0, solucion[0].padre)
 
-    for nod in solucion:
-        print(nod.accion)
 
-    print("Coste de la solución: " + str(nodoObjetivo.coste))
-    print("Nodos Generados: " + str(nodosCreados))
-    print("Nodos Expandidos: " + str(nodosExpandidos))
-    print("Nodos Explorados: " + str(nodosExplorados))
-    print("Máximo número de nodos abiertos " + str(maxElegibles))
-    print("Máximo número de nodos en memoria " + str(maxNodos))
-    
-    return;
+    solucionProfundidad = Solucion(solucion, nodoObjetivo.coste, nodosCreados, nodosExpandidos, nodosExplorados,
+                               maxElegibles, maxNodos)
+    return solucionProfundidad

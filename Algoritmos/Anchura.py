@@ -1,5 +1,8 @@
+from time import time
+
 from Metodos.Metodos import *
 from Estructuras.Maze import *
+from Estructuras.Solucion import *
 
 
 def Anchura(num, nCoches, semilla):
@@ -16,7 +19,7 @@ def Anchura(num, nCoches, semilla):
     nodosExpandidos = 0       #Nodos expandidos
     continuar = True
 
-    NodoInicial = Nodo(None, None, 0, None, None, eInicial(maze, n, nCars))
+    NodoInicial = Nodo(None, '-Estado inicial-', 0, None, 0, eInicial(maze, n, nCars))
     nodoFrontera = None  # Nodo actual en cada iteración
     nodoObjetivo = None
     nodosCreados += 1
@@ -59,14 +62,7 @@ def Anchura(num, nCoches, semilla):
     while (solucion[0].padre != None):
         solucion.insert(0, solucion[0].padre)
 
-    for nod in solucion:
-        print(nod.accion)
+    solucionAnchura = Solucion(solucion, nodoObjetivo.coste, nodosCreados, nodosExpandidos, nodosExplorados, maxElegibles, maxNodos)
 
-    print("Coste de la solución: " + str(nodoObjetivo.coste))
-    print("Nodos Generados: " + str(nodosCreados))
-    print("Nodos Expandidos: " + str(nodosExpandidos))
-    print("Nodos Explorados: " + str(nodosExplorados))
-    print("Máximo número de nodos abiertos " + str(maxElegibles))
-    print("Máximo número de nodos en memoria " + str(maxNodos))
 
-    return;
+    return solucionAnchura;
