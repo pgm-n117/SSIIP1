@@ -1,3 +1,5 @@
+from collections import deque
+
 from Metodos.Metodos import *
 from Estructuras.Maze import *
 from Estructuras.Solucion import *
@@ -24,17 +26,14 @@ def Profundidad(num, nCoches, semilla, limite):
     nodoFrontera = None     #Nodo actual en cada iteración
     nodoObjetivo = None     #Nodo final
 
-
-    elegibles = [NodoInicial]   #Lista de nodos abiertos que quedan por explorar
+    elegibles = deque()   #Lista de nodos abierto
     cerrados = []               #Nodos cerrados que conservamos. en su conjunto es la rama que se está explorando
     solucion = []               #Almacenamos los nodos de la solución
 
-
+    elegibles.append(NodoInicial)
 
     while (continuar):
-        nodoFrontera = elegibles.pop(0)  # Sacamos el nodo en cabeza
-
-        #if(len(elegibles) > maxElegibles): maxElegibles = len(elegibles)
+        nodoFrontera = elegibles.popleft()  # Sacamos el nodo en cabeza
 
         nodosExplorados += 1        #Preguntar si ha sido visitado un estado cuenta como explorar un nodo
         if (not (nodoFrontera in cerrados)):
@@ -55,9 +54,12 @@ def Profundidad(num, nCoches, semilla, limite):
                     listaAcciones = AccionesPosibles(maze, n, nodoFrontera.estado)
                     if (len(listaAcciones) > 0):
                         nodosExpandidos += 1
-                        listaSucesores = Sucesores(listaAcciones, nodoFrontera)
+                        listaSucesores = deque()
+                        listaSucesores.extend(Sucesores(listaAcciones, nodoFrontera))
                         nodosCreados += len(listaSucesores)
-                        elegibles = listaSucesores + elegibles
+
+                        listaSucesores.extend(elegibles)
+                        elegibles = listaSucesores.copy()
 
                         lenEleg = len(elegibles)
                         lenMaxN = lenEleg + len(cerrados)

@@ -1,3 +1,6 @@
+from _heapq import *
+from collections import deque
+
 from Metodos.Metodos import *
 from Estructuras.Maze import *
 from Estructuras.Solucion import *
@@ -27,11 +30,12 @@ def primeroMejor(num, nCoches, semilla):
     nodoFrontera = None  # Nodo actual en cada iteración
 
 
-    elegibles = [NodoInicial]   #Lista de nodos abiertos que quedan por explorar
-    cerrados = []               #Nodos cerrados que conservamos. en su conjunto es la rama que se está explorando
-    solucion = []               #Almacenamos los nodos de la solución
+    elegibles = []          #Lista de nodos abiertos que quedan por explorar
+    cerrados = deque()      #Nodos cerrados que conservamos. en su conjunto es la rama que se está explorando
+    solucion = []           #Almacenamos los nodos de la solución
 
-
+    heapify(elegibles)
+    heappush(elegibles, NodoInicial)
 
     while (continuar):
         nodoFrontera = elegibles.pop(0)
@@ -52,21 +56,11 @@ def primeroMejor(num, nCoches, semilla):
 
                         nod.heur = Heuristica(nod.estado)
                         nod.eval = nod.heur
-                        bisect.insort(elegibles, nod)  # Inserción por biseccion
 
-                        '''
-                        insertado = False
-                        
-                        for i in range(len(elegibles)):
-                            #Insertamos cada nodo, ordenado por coste, y además por orden de generación
-                            if (nod.heur < elegibles[i].heur):
-                                elegibles.insert(i, nod)
-                                insertado = True
-                                break
-                        #Si su coste era mayor que todos los de abiertos, y no ha sido insertado, se inserta al final
-                        if(insertado == False):
-                            elegibles.append(nod)
-                        '''
+                        heappush(elegibles, nod)
+
+                        #bisect.insort(elegibles, nod)  # Inserción por biseccion
+
                         nodosCreados += 1
 
                     lenEleg = len(elegibles)

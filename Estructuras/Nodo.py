@@ -32,5 +32,6 @@ class Nodo:
 
     def __ne__(self, nodo):
         return not self.__eq__(nodo)
+
     def __str__(self):
         return str("Estado: "+ self.estado + ", Coste: "+self.coste)

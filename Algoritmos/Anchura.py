@@ -1,8 +1,9 @@
-from time import time
 
+from collections import deque
 from Metodos.Metodos import *
 from Estructuras.Maze import *
 from Estructuras.Solucion import *
+
 
 
 def Anchura(num, nCoches, semilla):
@@ -25,13 +26,13 @@ def Anchura(num, nCoches, semilla):
     nodoFrontera = None  # Nodo actual en cada iteración
     nodoObjetivo = None
 
-    elegibles = [NodoInicial]   #Lista de nodos abiertos que quedan por explorar
-    cerrados = []               #Nodos cerrados que conservamos. en su conjunto es la rama que se está explorando
+    elegibles = deque()         #Lista de nodos abiertos que quedan por explorar
+    cerrados = deque()          #Nodos cerrados que conservamos. en su conjunto es la rama que se está explorando
     solucion = []               #Almacenamos los nodos de la solución
-
+    elegibles.append(NodoInicial)
 
     while (continuar):
-        nodoFrontera = elegibles.pop(0)
+        nodoFrontera = elegibles.popleft()
 
         nodosExplorados += 1        #Preguntar si ha sido visitado un estado cuenta como explorar un nodo
         if (not (nodoFrontera in cerrados)):
@@ -47,7 +48,8 @@ def Anchura(num, nCoches, semilla):
                     nodosExpandidos +=1
                     listaSucesores = Sucesores(listaAcciones, nodoFrontera)
                     nodosCreados += len(listaSucesores)
-                    elegibles += listaSucesores
+                    '''elegibles += listaSucesores'''
+                    elegibles.extend(listaSucesores)
 
                     lenEleg = len(elegibles)
                     lenMaxN = lenEleg + len(cerrados)
