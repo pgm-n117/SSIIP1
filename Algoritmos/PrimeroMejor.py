@@ -6,17 +6,19 @@ import bisect
 def primeroMejor(num, nCoches, semilla):
     global maze,n,nCars
     maze=getProblemInstance(num, nCoches, semilla)
-    for i in range(num):
-        print(maze[i])
 
-    n=num                   #Tamaño del problema
-    nCars=nCoches           #Número de coches
+    mazePreview(num, maze, True)
 
-    nodosCreados=0          #Nodos creados añadidos a abiertos
-    nodosExplorados=0       #Nodos explorados, a los que hemos preguntado si son solución
-    nodosExpandidos = 0     #Nodos expandidos
-    continuar = True
-    insertado = False
+    n = num             #Tamaño del problema
+    nCars = nCoches     #Número de coches
+
+    nodosCreados = 1        #Nodos creados añadidos a abiertos (contando el inicial)
+    nodosExplorados = 0     #Nodos explorados, a los que hemos preguntado si son solución
+    nodosExpandidos = 0     #Nodos expandidos, de los cuales hemos generado sus sucesores
+    maxElegibles = 1        #Máximo número de nodos en elegibles
+    maxNodos = 1            #Máximo número de nodos en memoria
+    continuar = True        #Si encuentra solución o no hay más nodos elegibles, paramos la búsqueda
+
 
     InicializaHeuristica(n, maze)
 
@@ -24,12 +26,11 @@ def primeroMejor(num, nCoches, semilla):
     NodoInicial.heur = Heuristica(NodoInicial.estado)
     nodoFrontera = None  # Nodo actual en cada iteración
 
-    nodosCreados+=1
-    elegibles=[NodoInicial]
-    maxElegibles = 1
-    maxNodos = 1
-    cerrados=[]
-    solucion=[]
+
+    elegibles = [NodoInicial]   #Lista de nodos abiertos que quedan por explorar
+    cerrados = []               #Nodos cerrados que conservamos. en su conjunto es la rama que se está explorando
+    solucion = []               #Almacenamos los nodos de la solución
+
 
 
     while (continuar):

@@ -101,3 +101,19 @@ def esSolucion(estado, n):
         if(estado[i][1] != n-1):
             return False;
     return True;
+
+
+def mazePreview(num, maze, h):
+
+    mazePreview=[[" " for i in range(num)]for j in range(num)]
+    mazePreview[0]=maze[0][:]
+    for i in range(1,num):
+        for j in range(num):
+            if(maze[i][j]==-1):
+                mazePreview[i][j]="x"
+
+    if(h):
+        for i in range(num):
+            print(mazePreview[i])
+
+    return
