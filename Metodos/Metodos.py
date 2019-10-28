@@ -46,6 +46,41 @@ def AccionesPosibles(maze, n, estado):
 
 def InicializaHeuristica(n,maze):
     global matrizH
+    matrizH=[maze[i][:] for i in range(n)]
+    matrizH[0]=[0 for i in range(n)]
+    coords=[0,1,[]]
+    for x in range(n):
+        if (matrizH[n-2][x]==0): matrizH[n-2][x]=1
+        if (matrizH[n-2][x]==1 and matrizH[n-3][x]==0):
+            matrizH[n-3][x]=2
+            coords[2].append((n-3,x))
+    for num in range(2,int(n*n/2)):
+        noEncontrado=True
+        coords.append([])
+        for elem in coords[num]:
+            (y,x)=elem
+            if(matrizH[y][x]==num):
+                if((y!=n-1) and matrizH[y+1][x]==0):
+                    matrizH[y+1][x]=num+1
+                    coords[num+1].append((y+1,x))
+                if((y!=0) and matrizH[y-1][x]==0):
+                    matrizH[y-1][x]=num+1
+                    coords[num+1].append((y-1,x))
+                if((x!=n-1) and matrizH[y][x+1]==0):
+                    matrizH[y][x+1]=num+1
+                    coords[num+1].append((y,x+1))
+                if((x!=0) and matrizH[y][x-1]==0):
+                    matrizH[y][x-1]=num+1
+                    coords[num+1].append((y,x-1))
+        if (len(coords[num+1])==0): break
+    for i in range(n):
+        print(matrizH[i])
+    return;
+
+
+
+def InicializaHeuristica2(n,maze):
+    global matrizH
     matrizH=[[0 for i in range(n)]for j in range(n)]
     for distanciafinal in range(n-2,-1,-1):
         for x in range(0,n):
