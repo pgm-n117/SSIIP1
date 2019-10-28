@@ -1,3 +1,5 @@
+from collections import deque
+
 from Metodos.Metodos import *
 from Estructuras.Maze import *
 from Estructuras.Solucion import *
@@ -5,32 +7,33 @@ from Estructuras.Solucion import *
 
 def Profundidad(num, nCoches, semilla, limite):
     global maze, n, nCars
+
     maze = getProblemInstance(num, nCoches, semilla)
-    for i in range(num):
-        print(maze[i])
 
-    n = num  # Tamaño del problema
-    nCars = nCoches  # Número de coches
+    mazePreview(num, maze, False)
 
-    nodosCreados = 0  # Nodos creados añadidos a abiertos
-    nodosExplorados = 0  # Nodos explorados, a los que hemos preguntado si son solución
-    nodosExpandidos = 0  # Nodos expandidos, de los cuales hemos generado sus sucesores
-    continuar = True
+    n = num             #Tamaño del problema
+    nCars = nCoches     #Número de coches
+
+    nodosCreados = 1        #Nodos creados añadidos a abiertos (contando el inicial)
+    nodosExplorados = 0     #Nodos explorados, a los que hemos preguntado si son solución
+    nodosExpandidos = 0     #Nodos expandidos, de los cuales hemos generado sus sucesores
+    maxElegibles = 1        #Máximo número de nodos en elegibles
+    maxNodos = 1            #Máximo número de nodos en memoria
+    continuar = True        #Si encuentra solución o no hay más nodos elegibles, paramos la búsqueda
 
     NodoInicial = Nodo(None, '-Estado inicial-', 0, None, None, eInicial(maze, n, nCars))
-    nodoFrontera = None  # Nodo actual en cada iteración
-    nodoObjetivo = None
-    nodosCreados += 1
-    elegibles = [NodoInicial]
-    maxElegibles = 1
-    maxNodos = 1
-    cerrados = [] # Nodos cerrados que conservamos. en su conjunto es la rama que se está explorando
-    solucion = []
-    #eCerrados = []  # Estados visitados
-    while (continuar):
-        nodoFrontera = elegibles.pop(0)  # Sacamos el nodo en cabeza
+    nodoFrontera = None     #Nodo actual en cada iteración
+    nodoObjetivo = None     #Nodo final
 
-        #if(len(elegibles) > maxElegibles): maxElegibles = len(elegibles)
+    elegibles = deque()   #Lista de nodos abierto
+    cerrados = []               #Nodos cerrados que conservamos. en su conjunto es la rama que se está explorando
+    solucion = []               #Almacenamos los nodos de la solución
+
+    elegibles.append(NodoInicial)
+
+    while (continuar):
+        nodoFrontera = elegibles.popleft()  # Sacamos el nodo en cabeza
 
         nodosExplorados += 1        #Preguntar si ha sido visitado un estado cuenta como explorar un nodo
         if (not (nodoFrontera in cerrados)):
@@ -51,9 +54,12 @@ def Profundidad(num, nCoches, semilla, limite):
                     listaAcciones = AccionesPosibles(maze, n, nodoFrontera.estado)
                     if (len(listaAcciones) > 0):
                         nodosExpandidos += 1
-                        listaSucesores = Sucesores(listaAcciones, nodoFrontera)
+                        listaSucesores = deque()
+                        listaSucesores.extend(Sucesores(listaAcciones, nodoFrontera))
                         nodosCreados += len(listaSucesores)
-                        elegibles = listaSucesores + elegibles
+
+                        listaSucesores.extend(elegibles)
+                        elegibles = listaSucesores.copy()
 
                         lenEleg = len(elegibles)
                         lenMaxN = lenEleg + len(cerrados)

@@ -1,51 +1,48 @@
+from collections import deque
+
 from Metodos.Metodos import *
 from Estructuras.Maze import *
 from Estructuras.Solucion import *
 import bisect
+from _heapq import *
 
 def AEstrella(num, nCoches, semilla):
     global maze,n,nCars
     maze=getProblemInstance(num, nCoches, semilla)
 
-    mazePreview=[[" " for i in range(num)]for j in range(num)]
-    mazePreview[0]=maze[0][:]
-    for i in range(1,num):
-        for j in range(num):
-            if(maze[i][j]==-1):
-                mazePreview[i][j]="x"
+    mazePreview(num, maze, True)
 
-    for i in range(num):
-        print(mazePreview[i])
+    n = num             #Tamaño del problema
+    nCars = nCoches     #Número de coches
 
-    n=num                   #Tamaño del problema
-    nCars=nCoches           #Número de coches
-
-    nodosCreados=0          #Nodos creados añadidos a abiertos
-    nodosExplorados=0       #Nodos explorados, a los que hemos preguntado si son solución
-    nodosExpandidos = 0     #Nodos expandidos
-    continuar = True
-    insertado = False
+    nodosCreados = 1        #Nodos creados añadidos a abiertos (contando el inicial)
+    nodosExplorados = 0     #Nodos explorados, a los que hemos preguntado si son solución
+    nodosExpandidos = 0     #Nodos expandidos, de los cuales hemos generado sus sucesores
+    maxElegibles = 1        #Máximo número de nodos en elegibles
+    maxNodos = 1            #Máximo número de nodos en memoria
+    continuar = True        #Si encuentra solución o no hay más nodos elegibles, paramos la búsqueda
 
     InicializaHeuristica(n,maze)
 
     #Obtenemos el nodo inicial, calculamos su heurística y su función de evaluación
-    NodoInicial = Nodo(None, '-Estado inicial', 0, None, None, eInicial(maze, n, nCars))
+    NodoInicial = Nodo(None, '-Estado inicial-', 0, None, None, eInicial(maze, n, nCars))
     NodoInicial.heur = Heuristica(NodoInicial.estado)
     NodoInicial.eval = NodoInicial.coste + NodoInicial.heur
 
     nodoFrontera = None  # Nodo actual en cada iteración
 
-    nodosCreados+=1
-    elegibles=[NodoInicial]
-    maxElegibles = 1
-    maxNodos = 1
-    cerrados=[]
-    solucion=[]
 
+    elegibles = []          #Lista de nodos abiertos que quedan por explorar
+    cerrados = deque()      #Nodos cerrados que conservamos. en su conjunto es la rama que se está explorando
+    solucion = []           #Almacenamos los nodos de la solución
 
+    heapify(elegibles)
+    heappush(elegibles, NodoInicial)
 
     while (continuar):
-        nodoFrontera = elegibles.pop(0)
+        #nodoFrontera = elegibles.pop(0)
+        nodoFrontera = heappop(elegibles)
+
         nodosExplorados += 1        #Preguntar si ha sido visitado un estado cuenta como explorar un nodo
 
         esCerrado=nodoFrontera in cerrados
@@ -53,7 +50,7 @@ def AEstrella(num, nCoches, semilla):
         if (esCerrado):             #Si el estado ya fue explorado, pero tiene menor coste, lo sacamos de cerrados,
             i=cerrados.index(nodoFrontera)
             if(nodoFrontera.coste<cerrados[i].coste):
-                cerrados.pop(i)
+                cerrados.remove(nodoFrontera)
                 esCerrado=False
 
         if(not(esCerrado)):
@@ -67,23 +64,13 @@ def AEstrella(num, nCoches, semilla):
                 if(len(listaAcciones) > 0):
                     nodosExpandidos +=1
                     for nod in Sucesores(listaAcciones, nodoFrontera):
-#                        insertado = False
                         nod.heur = Heuristica(nod.estado)
                         nod.eval = nod.coste + nod.heur
 
-                        bisect.insort(elegibles, nod)  # Inserción por biseccion
+                        heappush(elegibles, nod)
 
-                        '''
-                        for i in range(len(elegibles)):
-                            #Insertamos cada nodo, ordenado por evaluación, y además por orden de generación
-                            if (nod.eval < elegibles[i].eval):
-                                elegibles.insert(i, nod)
-                                insertado = True
-                                break
-                        #Si su evaluacion era mayor que todos los de abiertos, y no ha sido insertado, se inserta al final
-                        if(insertado == False):
-                            elegibles.append(nod)
-                        '''
+                        #bisect.insort(elegibles, nod)  # Inserción por biseccion
+
                         nodosCreados += 1
 
                     lenEleg = len(elegibles)
