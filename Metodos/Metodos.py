@@ -77,38 +77,6 @@ def InicializaHeuristica(n,maze):
         print(matrizH[i])
     return;
 
-
-
-def InicializaHeuristica2(n,maze):
-    global matrizH
-    matrizH=[[0 for i in range(n)]for j in range(n)]
-    for distanciafinal in range(n-2,-1,-1):
-        for x in range(0,n):
-            if (maze[distanciafinal][x]==-1):
-                matrizH[distanciafinal][x]=matrizH[distanciafinal+1][x]+2
-            elif (maze[distanciafinal+1][x]==-1):
-                if(x==0):
-                    if(maze[distanciafinal][x+1]==-1):
-                        matrizH[distanciafinal][x]=matrizH[distanciafinal+1][x+1]+5
-                    else:
-                        matrizH[distanciafinal][x]=matrizH[distanciafinal+1][x+1]+2
-                elif(x==n-1):
-                    if(maze[distanciafinal][x-1]==-1):
-                        matrizH[distanciafinal][x]=matrizH[distanciafinal+1][x-1]+5
-                    else:
-                        matrizH[distanciafinal][x]=matrizH[distanciafinal+1][x-1]+2
-                else:
-                    i=2
-                    d=2
-                    if(maze[distanciafinal][x+1]==-1): d+=3
-                    if(maze[distanciafinal][x-1]==-1): i+=3
-                    matrizH[distanciafinal][x]=min([matrizH[distanciafinal+1][x-1]+i,matrizH[distanciafinal+1][x+1]+d])
-            else:
-                matrizH[distanciafinal][x]=matrizH[distanciafinal+1][x]+1
-    for i in range(n):
-        print(matrizH[i])
-    return;
-
 #Calcula la heurística de un nodo, devuelve la distancia en linea recta desde un coche hasta la última fila
 def Heuristica(estado):
     h=0

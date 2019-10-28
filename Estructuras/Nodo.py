@@ -12,7 +12,7 @@ class Nodo:
 
     def __gt__(self, nodo):     #Comparacion greater than
         if isinstance(nodo, self.__class__):
-            return self.eval > nodo.eval-1
+            return self.eval > nodo.eval
     '''
     def __ge__(self, nodo):     #Comparacion greater or equal than
         if isinstance(nodo, self.__class__):
