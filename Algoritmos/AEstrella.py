@@ -32,16 +32,16 @@ def AEstrella(num, nCoches, semilla):
     nodoFrontera = None  # Nodo actual en cada iteración
 
 
-    elegibles = []          #Lista de nodos abiertos que quedan por explorar
+    elegibles = [NodoInicial]          #Lista de nodos abiertos que quedan por explorar
     cerrados = deque()      #Nodos cerrados que conservamos. en su conjunto es la rama que se está explorando
     solucion = []           #Almacenamos los nodos de la solución
 
-    heapify(elegibles)
-    heappush(elegibles, NodoInicial)
+    #heapify(elegibles)
+    #heappush(elegibles, NodoInicial)
 
     while (continuar):
-        #nodoFrontera = elegibles.pop(0)
-        nodoFrontera = heappop(elegibles)
+        nodoFrontera = elegibles.pop(0)
+        #nodoFrontera = heappop(elegibles)
 
         nodosExplorados += 1        #Preguntar si ha sido visitado un estado cuenta como explorar un nodo
 
@@ -67,9 +67,9 @@ def AEstrella(num, nCoches, semilla):
                         nod.heur = Heuristica(nod.estado)
                         nod.eval = nod.coste + nod.heur
 
-                        heappush(elegibles, nod)
+                        #heappush(elegibles, nod)
 
-                        #bisect.insort(elegibles, nod)  # Inserción por biseccion
+                        bisect.insort(elegibles, nod)  # Inserción por biseccion
 
                         nodosCreados += 1
 
