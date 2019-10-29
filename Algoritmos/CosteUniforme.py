@@ -68,7 +68,7 @@ def costeUniforme(num, nCoches, semilla):
         if (len(elegibles) == 0):
             print('Error. Nos hemos quedado sin elegibles')
             continuar = False
-            return
+            return Solucion(None, None, nodosCreados, nodosExpandidos, nodosExplorados, maxElegibles, maxNodos)
 
     while (solucion[0].padre != None):
         solucion.insert(0, solucion[0].padre)
