@@ -1,4 +1,7 @@
 #Atributos de un nodo cualquiera
+from filecmp import cmp
+
+
 class Nodo:
     def __init__(self, padre, accion, coste, heur, eval, estado):
         self.padre = padre      # Nodo superior
@@ -10,7 +13,7 @@ class Nodo:
 
 
 
-    def __gt__(self, nodo):     #Comparacion greater than, utilizada para insercion por biseccion en AEstrella
+    def __gt__(self, nodo):     #Comparacion greater than, utilizada para insercion por biseccion y heap en AEstrella
         if isinstance(nodo, self.__class__):
             return self.eval > nodo.eval
     '''
@@ -29,6 +32,7 @@ class Nodo:
                 return (self.estado == nodo.estado)     #para AEstrella o PrimeroMejor mejor esta
         else:
             return False
+
 
     def __ne__(self, nodo):
         return not self.__eq__(nodo)
