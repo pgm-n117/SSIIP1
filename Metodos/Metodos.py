@@ -7,9 +7,7 @@ from Estructuras.Nodo import *
 #suma 2 Tuplas x con x e y con y
 def SumaTuplas(a,b):
     return (a[0]+b[0],a[1]+b[1])
-#resta 2 Tuplas x con x e y con y
-def RestaTuplas(a,b):
-    return (a[0]-b[0],a[1]-b[1])
+
 #Obtiene el estado inicial
 def eInicial(maze, n, nCars):
     estado = [(0,0) for i in range(nCars)]
@@ -21,11 +19,6 @@ def eInicial(maze, n, nCars):
 def aplicaAccion(estado,accion):
     nuevoEstado=estado[:]
     nuevoEstado[accion.coche]=SumaTuplas(nuevoEstado[accion.coche],accion.direccion)
-    return nuevoEstado;
-
-def desHacerAccion(estado,accion):
-    nuevoEstado=estado[:]
-    nuevoEstado[accion.coche]=RestaTuplas(nuevoEstado[accion.coche],accion.direccion)
     return nuevoEstado;
 
 def Sucesores(listaAcciones, nod):
